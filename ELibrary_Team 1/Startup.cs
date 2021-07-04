@@ -37,7 +37,7 @@ namespace ELibrary_Team_1
 
 
 
-            services.AddIdentity<AppUser, IdentityRole>()
+            services.AddDefaultIdentity<AppUser>()
                 .AddEntityFrameworkStores<ELibraryDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();

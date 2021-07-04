@@ -12,15 +12,14 @@ namespace ELibrary.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            builder.ToTable("AppUsers");
-           
+            builder.ToTable("Users");
 
-                // The relationships between User and other entity types
-                // Note that these relationships are configured with no navigation properties
 
-                // Each User can have many UserClaims
-            
-            
+            builder.HasMany(x => x.UserVotes).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x => x.AccessRequests).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x => x.UpdateRequests).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+
+
         }
           
         //
