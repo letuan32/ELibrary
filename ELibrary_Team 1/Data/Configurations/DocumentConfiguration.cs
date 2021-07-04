@@ -20,7 +20,7 @@ namespace ELibrary.Data.Configurations
             builder.HasMany(x => x.DocumentCategories).WithOne(x => x.Document).HasForeignKey(x => x.DocumentId);
             builder.HasMany(x => x.Chapters).WithOne(x => x.Document).HasForeignKey(x => x.DocumentId)/*.OnDelete(DeleteBehavior.Cascade)*/;
             builder.HasMany(x => x.AccessRequests).WithOne(x => x.Document).HasForeignKey(x => x.DocumentId)/*.OnDelete(DeleteBehavior.Cascade)*/;
-            builder.HasMany(x => x.Rates).WithOne(x => x.Document).HasForeignKey(x => x.DocumentId)/*.OnDelete(DeleteBehavior.Cascade)*/;
+            builder.HasMany(x => x.UserVotes).WithOne(x => x.Document).HasForeignKey(x => x.DocumentId)/*.OnDelete(DeleteBehavior.Cascade)*/;
 
 
 

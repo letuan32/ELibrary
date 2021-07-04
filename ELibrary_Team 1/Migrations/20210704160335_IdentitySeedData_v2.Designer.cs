@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELibrary_Team_1.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    [Migration("20210616110724_ELibraryDb")]
-    partial class ELibraryDb
+    [Migration("20210704160335_IdentitySeedData_v2")]
+    partial class IdentitySeedData_v2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,7 +119,23 @@ namespace ELibrary_Team_1.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AppUsers");
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 5,
+                            ConcurrencyStamp = "53abf2bc-df4f-4f7e-9ac2-5c8719111f5c",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3e25da6f-60b8-4298-b091-4fb9371c8243",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ELibrary_Team_1.Models.Category", b =>
@@ -202,6 +218,9 @@ namespace ELibrary_Team_1.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("AverageRate")
+                        .HasColumnType("float");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -223,6 +242,7 @@ namespace ELibrary_Team_1.Migrations
                         {
                             Id = 1,
                             Author = "Unknow",
+                            AverageRate = 0.0,
                             Description = "This comprehensive reference to the C# language is designed to help you get up to speed on C#. Author Eric Gunnerson, a developer on Microsoft's C# design team, has logged many hours writing and testing C# code. ",
                             IsPublic = true,
                             Title = "Introduction to C#",
@@ -232,6 +252,7 @@ namespace ELibrary_Team_1.Migrations
                         {
                             Id = 2,
                             Author = "Unknow",
+                            AverageRate = 0.0,
                             Description = "A Practical Introduction to Clean Coding for Beginners",
                             IsPublic = false,
                             Title = "Clean Code",
@@ -275,34 +296,6 @@ namespace ELibrary_Team_1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ELibrary_Team_1.Models.Rate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("AverageRate")
-                        .HasColumnType("float");
-
-                    b.Property<int>("DocumentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Vote")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Rates");
-                });
-
             modelBuilder.Entity("ELibrary_Team_1.Models.UpdateRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -327,6 +320,40 @@ namespace ELibrary_Team_1.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UpdateRequest");
+                });
+
+            modelBuilder.Entity("ELibrary_Team_1.Models.UserVote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DocumentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Vote")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserVotes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DocumentId = 1,
+                            UserId = "1",
+                            Vote = 5
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -356,25 +383,6 @@ namespace ELibrary_Team_1.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppRoles");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -396,7 +404,7 @@ namespace ELibrary_Team_1.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AppRoleClaims");
+                    b.ToTable("AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -420,16 +428,18 @@ namespace ELibrary_Team_1.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AppUserClaims");
+                    b.ToTable("AspNetUserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -442,7 +452,7 @@ namespace ELibrary_Team_1.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AppUserLogins");
+                    b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -457,7 +467,7 @@ namespace ELibrary_Team_1.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AppUserRoles");
+                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -466,17 +476,19 @@ namespace ELibrary_Team_1.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AppUserTokens");
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("ELibrary_Team_1.Models.AccessRequest", b =>
@@ -489,7 +501,8 @@ namespace ELibrary_Team_1.Migrations
 
                     b.HasOne("ELibrary_Team_1.Models.AppUser", "AppUser")
                         .WithMany("AccessRequests")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ELibrary_Team_1.Models.Chapter", b =>
@@ -516,24 +529,26 @@ namespace ELibrary_Team_1.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ELibrary_Team_1.Models.Rate", b =>
+            modelBuilder.Entity("ELibrary_Team_1.Models.UpdateRequest", b =>
+                {
+                    b.HasOne("ELibrary_Team_1.Models.AppUser", "AppUser")
+                        .WithMany("UpdateRequests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ELibrary_Team_1.Models.UserVote", b =>
                 {
                     b.HasOne("ELibrary_Team_1.Models.Document", "Document")
-                        .WithMany("Rates")
+                        .WithMany("UserVotes")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ELibrary_Team_1.Models.AppUser", "AppUser")
-                        .WithMany("Rates")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ELibrary_Team_1.Models.UpdateRequest", b =>
-                {
-                    b.HasOne("ELibrary_Team_1.Models.AppUser", "AppUser")
-                        .WithMany("UpdateRequests")
-                        .HasForeignKey("UserId");
+                        .WithMany("UserVotes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

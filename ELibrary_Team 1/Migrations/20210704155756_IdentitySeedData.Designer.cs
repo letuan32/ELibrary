@@ -4,14 +4,16 @@ using ELibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ELibrary_Team_1.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    partial class ELibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210704155756_IdentitySeedData")]
+    partial class IdentitySeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,13 +126,13 @@ namespace ELibrary_Team_1.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-                            ConcurrencyStamp = "53abf2bc-df4f-4f7e-9ac2-5c8719111f5c",
+                            ConcurrencyStamp = "cf929a6c-687c-4316-8d99-b3a58565a5e0",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3e25da6f-60b8-4298-b091-4fb9371c8243",
+                            SecurityStamp = "0bb6ff0c-118a-4b1c-8d52-4752b4c9a97e",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -499,8 +501,7 @@ namespace ELibrary_Team_1.Migrations
 
                     b.HasOne("ELibrary_Team_1.Models.AppUser", "AppUser")
                         .WithMany("AccessRequests")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ELibrary_Team_1.Models.Chapter", b =>
@@ -531,8 +532,7 @@ namespace ELibrary_Team_1.Migrations
                 {
                     b.HasOne("ELibrary_Team_1.Models.AppUser", "AppUser")
                         .WithMany("UpdateRequests")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ELibrary_Team_1.Models.UserVote", b =>
@@ -545,8 +545,7 @@ namespace ELibrary_Team_1.Migrations
 
                     b.HasOne("ELibrary_Team_1.Models.AppUser", "AppUser")
                         .WithMany("UserVotes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
