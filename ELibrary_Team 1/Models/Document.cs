@@ -12,11 +12,12 @@ namespace ELibrary_Team_1.Models
         public DateTime UpdateDate { get; set; }
         public string Description { get; set; }
         public Boolean IsPublic { get; set; }
+        public double AverageRate { get; set; }
 
         //
         public ICollection<DocumentCategory> DocumentCategories { get; set; }
         public ICollection<Chapter> Chapters { get; set; }
         public ICollection<AccessRequest> AccessRequests { get; set; }
-        public ICollection<Rate> Rates { get; set; }
+        public ICollection<UserVote> UserVotes { get; set; }
     }
 }

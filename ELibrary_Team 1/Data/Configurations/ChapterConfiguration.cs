@@ -16,7 +16,7 @@ namespace ELibrary.Data.Configurations
             builder.Property(x => x.Id).IsRequired(true);
 
             //ORM
-            builder.HasOne(x => x.Document).WithMany(x => x.Chapters).HasForeignKey(x => x.DocumentId)/*.OnDelete(DeleteBehavior.SetNull)*/;
+            builder.HasOne(x => x.Document).WithMany(x => x.Chapters).HasForeignKey(x => x.DocumentId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
 
 

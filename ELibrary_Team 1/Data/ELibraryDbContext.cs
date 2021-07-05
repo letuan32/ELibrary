@@ -24,22 +24,16 @@ namespace ELibrary.Data
             base.OnModelCreating(modelBuilder);
            
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
-
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ChapterConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new AccessRequestConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentConfiguration());
-            modelBuilder.ApplyConfiguration(new RateConfiguration());
+            modelBuilder.ApplyConfiguration(new UserVoteConfiguration());
             modelBuilder.ApplyConfiguration(new UpdateRequestConfiguration());
 
             /// Customize Identity Table Name
-            modelBuilder.Entity<IdentityRole<string>>().ToTable("AppRoles");
-            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("AppUserClaims");
-            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("AppUserRoles");
-            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("AppUserLogins");
-            modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("AppRoleClaims");
-            modelBuilder.Entity<IdentityUserToken<string>>().ToTable("AppUserTokens");
+
 
             modelBuilder.Seed();
         }
@@ -49,8 +43,9 @@ namespace ELibrary.Data
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<DocumentCategory> DocumentCategories { get; set; }
-        public DbSet<Rate> Rates { get; set; }
+        public DbSet<UserVote> UserVotes { get; set; }
         public DbSet<UpdateRequest> UpdateRequests { get; set; }
+       
 
     }
 }

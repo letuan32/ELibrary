@@ -16,7 +16,7 @@ namespace ELibrary.Data.Configurations
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
          
             //ORM
-            builder.HasMany(x => x.DocumentCategories).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId)/*.OnDelete(DeleteBehavior.SetNull)*/;
+            //builder.HasMany(x => x.DocumentCategories).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId)/*.OnDelete(DeleteBehavior.SetNull)*/;
             
 
         }

@@ -10,12 +10,13 @@ namespace ELibrary_Team_1.Models
         //
 
         public string FullName { get; set; }
-        public ICollection<AccessRequest> AccessRequests { get; set; }
-        public ICollection<Rate> Rates { get; set; }
-        public ICollection<UpdateRequest> UpdateRequests { get; set; }
+
 
        
 
+        public ICollection<UpdateRequest> UpdateRequests { get; set; }
+        public ICollection<AccessRequest> AccessRequests { get; set; }
+        public ICollection<UserVote> UserVotes { get; set; }
 
     }
     

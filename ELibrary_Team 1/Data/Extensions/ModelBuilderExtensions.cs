@@ -12,6 +12,24 @@ namespace ELibrary.Data.Extensions
         // Applying Seed Data To The Database --- learnentityframeworkcore
         public static void Seed(this ModelBuilder modelBuilder)
         {
+
+            // Identity
+            modelBuilder.Entity<AppUser>().HasData(
+                new AppUser
+                {
+                    Id = "1",
+                    UserName = "Admin",
+                    Email = "admin@gmail.com",
+                    LockoutEnabled = false,
+                    PhoneNumber = "1234567890",
+                    AccessFailedCount = 5,
+                    TwoFactorEnabled = false,
+                    PhoneNumberConfirmed = false,
+                    EmailConfirmed = false,
+
+                }
+            );
+            // 
             // Document Table //
             modelBuilder.Entity<Document>().HasData(
                 new Document
@@ -89,6 +107,21 @@ namespace ELibrary.Data.Extensions
                     CategoryId = 2
                 }
             );
+            modelBuilder.Entity<UserVote>().HasData(
+                new UserVote
+                {
+                    Id = 1,
+                    DocumentId = 1,
+                    UserId = "1",
+                    Vote = 5
+                }
+                );
+
+
+
+
+
+
             // 
 
 
