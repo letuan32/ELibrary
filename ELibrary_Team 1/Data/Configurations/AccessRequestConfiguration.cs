@@ -15,8 +15,8 @@ namespace ELibrary.Data.Configurations
             builder.ToTable("AccessRequests");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.IsAccept).IsRequired(true).HasDefaultValue(false).ValueGeneratedOnAdd();
-            builder.HasOne(x => x.AppUser).WithMany(x => x.AccessRequests).HasForeignKey(x => x.UserId)/*OnDelete(DeleteBehavior.Cascade)*/;
-            //Khi mà thằng AccsessRequest mà bị xóa thì bên User nó sẽ mất tiêu luôn
+            builder.HasOne(x => x.AppUser).WithMany(x => x.AccessRequests).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+      
         }
         //
     }

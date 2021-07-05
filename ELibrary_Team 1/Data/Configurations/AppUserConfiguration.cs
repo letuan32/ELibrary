@@ -15,9 +15,10 @@ namespace ELibrary.Data.Configurations
             builder.ToTable("Users");
 
 
-            builder.HasMany(x => x.UserVotes).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(x => x.AccessRequests).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(x => x.UpdateRequests).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasMany(x => x.UserVotes).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasMany(x => x.AccessRequests).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasMany(x => x.UpdateRequests).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            
 
 
         }
