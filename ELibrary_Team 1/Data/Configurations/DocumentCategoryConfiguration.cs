@@ -16,8 +16,8 @@ namespace ELibrary.Data.Configurations
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
             //ORM
-            builder.HasOne(x => x.Category).WithMany(x => x.DocumentCategories).HasForeignKey(x => x.CategoryId);
-            builder.HasOne(x => x.Document).WithMany(x => x.DocumentCategories).HasForeignKey(x => x.DocumentId)/*.OnDelete(DeleteBehavior.NoAction)*/;
+            builder.HasOne(x => x.Category).WithMany(x => x.DocumentCategories).HasForeignKey(x => x.CategoryId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Document).WithMany(x => x.DocumentCategories).HasForeignKey(x => x.DocumentId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
 
 
