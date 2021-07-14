@@ -42,7 +42,7 @@ namespace ELibrary_Team_1
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-
+            services.AddRazorPages();
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -69,6 +69,7 @@ namespace ELibrary_Team_1
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
