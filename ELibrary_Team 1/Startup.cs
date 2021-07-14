@@ -2,17 +2,11 @@ using ELibrary.Data;
 using ELibrary_Team_1.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Identity.UI;
-using System.Threading.Tasks;
 
 namespace ELibrary_Team_1
 {
@@ -42,7 +36,7 @@ namespace ELibrary_Team_1
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-
+            services.AddRazorPages();
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -69,6 +63,7 @@ namespace ELibrary_Team_1
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
