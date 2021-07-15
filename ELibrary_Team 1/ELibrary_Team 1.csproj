@@ -28,4 +28,8 @@
     <ProjectReference Include="..\ELibrary_Team1.Models\ELibrary_Team1.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
