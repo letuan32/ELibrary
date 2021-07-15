@@ -2,7 +2,7 @@
 using ELibrary_Team_1.Models;
 using ELibrary.Data;
 
-namespace ELibrary_Team1.DataAccess.Data.Repository.Repository
+namespace ELibrary_Team1.DataAccess.Data.Repository
 {
     public class DocumentCategoryRepository : GenericRepository<DocumentCategory>, IDocumentCategoryRepository
     {

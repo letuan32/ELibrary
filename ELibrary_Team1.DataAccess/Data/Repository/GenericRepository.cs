@@ -19,50 +19,60 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             _db = db;
             this.dbSet = _db.Set<T>();
         }
-
-        public T Add(T entity)
+     // Add
+        public void Add(T entity)
         {
-            throw new NotImplementedException();
+            dbSet.Add(entity);
         }
 
         public T AddRange(T entites)
         {
             throw new NotImplementedException();
         }
-
-        public Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+     // Find & Get
+        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await dbSet.Where(predicate).ToListAsync();
         }
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return dbSet;
         }
-
-        public Task<IEnumerable<T>> GetAllAsync()
+        public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await dbSet.SingleOrDefaultAsync(predicate);
+        }
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await dbSet.ToListAsync();
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return dbSet.Find(id);
         }
 
         public T GetById(string id)
         {
-            throw new NotImplementedException();
+            return dbSet.Find(id);
         }
 
-        public T Remove(T entity)
+     // Remove
+        public void Remove(T entity)
         {
-            throw new NotImplementedException();
+            dbSet.Remove(entity);
         }
 
-        public T Update(T entity)
+     // Update
+        public void Update(T entity)
         {
-            throw new NotImplementedException();
+            dbSet.Attach(entity);
+            _db.Entry(entity).State = EntityState.Modified;
         }
+        //public void Update(T entity)
+        //{
+        //    dbSet.Update(entity);
+        //}
     }
 }

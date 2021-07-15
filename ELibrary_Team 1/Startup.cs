@@ -36,6 +36,15 @@ namespace ELibrary_Team_1
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+
+            // Repository and Service
+            services.AddRepositoryServices();
+
+
+
+
+
+
             services.AddRazorPages();
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

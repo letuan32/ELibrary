@@ -2,7 +2,7 @@
 using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
 using ELibrary.Data;
 
-namespace ELibrary_Team1.DataAccess.Data.Repository.Repository
+namespace ELibrary_Team1.DataAccess.Data.Repository
 {
     public class UserVoteRepository : GenericRepository<UserVote>, IUserVoteRepository
     {
