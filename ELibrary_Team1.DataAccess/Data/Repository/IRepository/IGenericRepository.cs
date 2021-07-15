@@ -8,17 +8,18 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
     public interface IGenericRepository<T> where T: class
     {
     // Add
-        T Add(T entity);
+        void Add(T entity);
         T AddRange(T entites);
         //Task<T> AddAsync(T entity);
         //Task<T> AddRangeAsync(T entites);
 
     // Remove
-        T Remove(T entity);
+        void Remove(T entity);
         //T RemoveRage(T entites);
 
     // Get
         IEnumerable<T> GetAll() ;
+        Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
         T GetById(int id);
         T GetById(string id);
         //Task<T> GetByIdAsync(int id);
@@ -30,7 +31,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
 
     // Update
-        T Update(T entity);
+        void Update(T entity);
         //Task<T> UpdateAsync(T entity);
     }
 }
