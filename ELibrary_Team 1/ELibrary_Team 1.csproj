@@ -28,4 +28,9 @@
     <ProjectReference Include="..\ELibrary_Team1.Models\ELibrary_Team1.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Authenticated\Controllers\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

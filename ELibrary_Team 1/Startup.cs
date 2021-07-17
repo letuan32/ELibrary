@@ -1,5 +1,7 @@
 using ELibrary.Data;
 using ELibrary_Team_1.Models;
+using ELibrary_Team1.DataAccess.Data.Repository;
+using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +43,8 @@ namespace ELibrary_Team_1
             services.AddRepositoryServices();
 
 
-
+            //
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 
@@ -71,7 +74,10 @@ namespace ELibrary_Team_1
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=Unauthenticated}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "api",
+                    pattern: "{area=Authenticated}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

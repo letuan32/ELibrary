@@ -8,8 +8,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELibrary_Team_1.Controllers
+namespace ELibrary_Team_1.Areas.Unauthenticated.Controllers
 {
+    [Area("Unauthenticated")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
