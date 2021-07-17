@@ -6,7 +6,7 @@ namespace ELibrary_Team_1.Models
 {
     public class DocumentCategory
     {
-        public int Id { get; set; }
+       
         public int DocumentId { get; set; }
         
         public int CategoryId { get; set; }
