@@ -12,8 +12,7 @@ namespace ELibrary.Data.Configurations
         public void Configure(EntityTypeBuilder<DocumentCategory> builder)
         {
             builder.ToTable("DocumentCategorys");
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.HasKey(x => new { x.CategoryId, x.DocumentId });
 
             //ORM
             builder.HasOne(x => x.Category).WithMany(x => x.DocumentCategories).HasForeignKey(x => x.CategoryId).IsRequired().OnDelete(DeleteBehavior.Cascade);

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELibrary_Team1.DataAccess.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    [Migration("20210715022926_RepoPattern")]
-    partial class RepoPattern
+    [Migration("20210717141344_ELib")]
+    partial class ELib
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,13 +127,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-                            ConcurrencyStamp = "f945a948-93b7-4a89-8183-bbd35d55bcf5",
+                            ConcurrencyStamp = "c037efbb-1e12-4469-8467-5e5087e2b969",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aca13d48-d8b1-4661-afad-cc58071897d6",
+                            SecurityStamp = "0888bc6b-5964-496e-9d46-312f25b76464",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -263,20 +263,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
 
             modelBuilder.Entity("ELibrary_Team_1.Models.DocumentCategory", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("DocumentId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
+                    b.HasKey("CategoryId", "DocumentId");
 
                     b.HasIndex("DocumentId");
 
@@ -285,13 +278,11 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
                             CategoryId = 1,
                             DocumentId = 1
                         },
                         new
                         {
-                            Id = 2,
                             CategoryId = 2,
                             DocumentId = 1
                         });

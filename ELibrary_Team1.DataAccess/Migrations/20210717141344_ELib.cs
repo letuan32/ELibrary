@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
-    public partial class RepoPattern : Migration
+    public partial class ELib : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -123,14 +123,12 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 name: "DocumentCategorys",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     DocumentId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DocumentCategorys", x => x.Id);
+                    table.PrimaryKey("PK_DocumentCategorys", x => new { x.CategoryId, x.DocumentId });
                     table.ForeignKey(
                         name: "FK_DocumentCategorys_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -330,7 +328,7 @@ namespace ELibrary_Team1.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 5, "f945a948-93b7-4a89-8183-bbd35d55bcf5", "admin@gmail.com", false, null, false, null, null, null, null, "1234567890", false, "aca13d48-d8b1-4661-afad-cc58071897d6", false, "Admin" });
+                values: new object[] { "1", 5, "c037efbb-1e12-4469-8467-5e5087e2b969", "admin@gmail.com", false, null, false, null, null, null, null, "1234567890", false, "0888bc6b-5964-496e-9d46-312f25b76464", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Chapters",
@@ -343,11 +341,11 @@ namespace ELibrary_Team1.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "DocumentCategorys",
-                columns: new[] { "Id", "CategoryId", "DocumentId" },
+                columns: new[] { "CategoryId", "DocumentId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1 },
-                    { 2, 2, 1 }
+                    { 1, 1 },
+                    { 2, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -396,11 +394,6 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 name: "IX_Chapters_DocumentId",
                 table: "Chapters",
                 column: "DocumentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DocumentCategorys_CategoryId",
-                table: "DocumentCategorys",
-                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DocumentCategorys_DocumentId",
