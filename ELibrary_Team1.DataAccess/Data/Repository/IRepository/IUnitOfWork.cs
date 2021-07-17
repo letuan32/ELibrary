@@ -9,6 +9,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository.IRepository
         IAppUserRepository AppUser { get; }
         IAccessRequestRepository AccessRequest { get; }
         ICategoryRepository Category { get; }
+        ISP_Call SP_Call { get; }
         IChapterRepository Chapter { get; }
         IDocumentCategoryRepository DocumentCategory { get; }
         IDocumentRepository Document { get; }
