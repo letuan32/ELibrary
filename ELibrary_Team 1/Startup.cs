@@ -43,10 +43,9 @@ namespace ELibrary_Team_1
             services.AddRepositoryServices();
 
 
-            //
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+         
 
-
+            // Razor page
 
             services.AddRazorPages();
         }
@@ -69,15 +68,19 @@ namespace ELibrary_Team_1
             app.UseRouting();
 
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{area=Unauthenticated}/{controller=Home}/{action=Index}/{id?}");
+
+
                 endpoints.MapControllerRoute(
                     name: "api",
                     pattern: "{area=Authenticated}/{controller=Home}/{action=Index}/{id?}");
+                
                 endpoints.MapRazorPages();
             });
         }

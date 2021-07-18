@@ -10,10 +10,10 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
     // Add
         void Add(T entity);
         void AddRange(T entites);
-        //Task<T> AddAsync(T entity);
+        Task AddAsync(T entity);
         //Task<T> AddRangeAsync(T entites);
 
-    // Remove
+        // Remove
         void Remove(T entity);
         //T RemoveRage(T entites);
 

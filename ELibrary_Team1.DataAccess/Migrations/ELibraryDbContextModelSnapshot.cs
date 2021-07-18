@@ -125,13 +125,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-                            ConcurrencyStamp = "c037efbb-1e12-4469-8467-5e5087e2b969",
+                            ConcurrencyStamp = "c27e2643-2c89-4c63-8f3e-d6bf62b62928",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0888bc6b-5964-496e-9d46-312f25b76464",
+                            SecurityStamp = "447c9ad9-c70d-40b6-94d7-16b5c64cd792",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -221,6 +221,9 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPublic")

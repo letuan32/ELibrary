@@ -17,6 +17,8 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         public IUpdateRequestRepository UpdateRequest { get; private set; }
         public IUserVoteRepository UserVote { get; private set; }
 
+        public ISP_Call SP_Call { get; set; }
+
         public UnitOfWork(ELibraryDbContext db)
         {
             _db = db;
@@ -28,6 +30,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             DocumentCategory = new DocumentCategoryRepository(_db);
             UpdateRequest = new UpdateRequestRepository(_db);
             UserVote = new UserVoteRepository(_db);
+            SP_Call = new SP_Call(_db);
 
         }
         public void Dispose()

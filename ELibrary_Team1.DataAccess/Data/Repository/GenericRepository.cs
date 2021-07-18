@@ -24,6 +24,10 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         {
             dbSet.Add(entity);
         }
+        public async Task AddAsync(T entity)
+        {
+            await dbSet.AddAsync(entity);
+        }
 
         public void AddRange(T entites)
         {
