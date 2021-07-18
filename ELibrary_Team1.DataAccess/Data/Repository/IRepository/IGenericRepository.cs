@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -17,8 +18,9 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         void Remove(T entity);
         //T RemoveRage(T entites);
 
-    // Get
-        IEnumerable<T> GetAll() ;
+        // Get
+        T Get(int id);
+        IEnumerable<T> GetAll();
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
         T GetById(int id);
         T GetById(string id);

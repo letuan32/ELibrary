@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
-    public partial class RepoPattern : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -330,7 +330,7 @@ namespace ELibrary_Team1.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 5, "f945a948-93b7-4a89-8183-bbd35d55bcf5", "admin@gmail.com", false, null, false, null, null, null, null, "1234567890", false, "aca13d48-d8b1-4661-afad-cc58071897d6", false, "Admin" });
+                values: new object[] { "1", 5, "65be2f5e-18f0-44ac-bf23-97ee244edd80", "admin@gmail.com", false, null, false, null, null, null, null, "1234567890", false, "9e4e6837-c7d5-47e5-9298-ef1ff0b8889e", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Chapters",

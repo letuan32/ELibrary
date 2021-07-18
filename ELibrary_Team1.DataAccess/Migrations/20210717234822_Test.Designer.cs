@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELibrary_Team1.DataAccess.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    [Migration("20210715022926_RepoPattern")]
-    partial class RepoPattern
+    [Migration("20210717234822_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,13 +127,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-                            ConcurrencyStamp = "f945a948-93b7-4a89-8183-bbd35d55bcf5",
+                            ConcurrencyStamp = "65be2f5e-18f0-44ac-bf23-97ee244edd80",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aca13d48-d8b1-4661-afad-cc58071897d6",
+                            SecurityStamp = "9e4e6837-c7d5-47e5-9298-ef1ff0b8889e",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

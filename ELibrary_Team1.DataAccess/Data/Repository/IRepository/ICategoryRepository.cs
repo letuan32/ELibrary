@@ -3,6 +3,5 @@ namespace ELibrary_Team1.DataAccess.Data.Repository.IRepository
 {
     public interface ICategoryRepository:IGenericRepository<Category>
     {
-        void Updated(Category category);
     }
 }
