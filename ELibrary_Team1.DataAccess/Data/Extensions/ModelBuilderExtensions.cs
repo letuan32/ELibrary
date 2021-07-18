@@ -96,13 +96,13 @@ namespace ELibrary.Data.Extensions
             modelBuilder.Entity<DocumentCategory>().HasData(
                 new DocumentCategory
                 {
-                    Id = 1,
+                    
                     DocumentId = 1,
                     CategoryId = 1
                 },
                 new DocumentCategory
                 {
-                    Id = 2,
+                    
                     DocumentId = 1,
                     CategoryId = 2
                 }

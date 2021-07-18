@@ -25,9 +25,9 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             dbSet.Add(entity);
         }
 
-        public T AddRange(T entites)
+        public void AddRange(T entites)
         {
-            throw new NotImplementedException();
+            dbSet.AddRange(entites);
         }
      // Find & Get
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
