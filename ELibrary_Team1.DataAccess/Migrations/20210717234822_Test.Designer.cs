@@ -4,14 +4,16 @@ using ELibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    partial class ELibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210717234822_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,21 +127,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-
                             ConcurrencyStamp = "65be2f5e-18f0-44ac-bf23-97ee244edd80",
-
-                            ConcurrencyStamp = "c037efbb-1e12-4469-8467-5e5087e2b969",
-
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-
                             SecurityStamp = "9e4e6837-c7d5-47e5-9298-ef1ff0b8889e",
-
-                            SecurityStamp = "0888bc6b-5964-496e-9d46-312f25b76464",
-
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -269,13 +263,20 @@ namespace ELibrary_Team1.DataAccess.Migrations
 
             modelBuilder.Entity("ELibrary_Team_1.Models.DocumentCategory", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("DocumentId")
                         .HasColumnType("int");
 
-                    b.HasKey("CategoryId", "DocumentId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("DocumentId");
 
@@ -284,11 +285,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             CategoryId = 1,
                             DocumentId = 1
                         },
                         new
                         {
+                            Id = 2,
                             CategoryId = 2,
                             DocumentId = 1
                         });

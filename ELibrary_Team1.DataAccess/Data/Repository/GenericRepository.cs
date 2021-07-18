@@ -70,6 +70,22 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             dbSet.Attach(entity);
             _db.Entry(entity).State = EntityState.Modified;
         }
+
+        public T Get(int id)
+        {
+            return dbSet.Find(id);
+        }
+
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int id)
+        {
+            T entity = dbSet.Find(id);
+            Remove(entity);
+        }
         //public void Update(T entity)
         //{
         //    dbSet.Update(entity);
