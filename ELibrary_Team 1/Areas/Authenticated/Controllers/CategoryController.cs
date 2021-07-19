@@ -28,7 +28,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
             {
                 return View(category);
             }
-            category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+            category = _unitOfWork.Category.GetById(id);
             if (category == null)
             {
                 return NotFound();
@@ -68,7 +68,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var objFromDb = _unitOfWork.Category.Get(id);
+            var objFromDb = _unitOfWork.Category.GetById(id);
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });

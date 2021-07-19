@@ -19,7 +19,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             _db = db;
             this.dbSet = _db.Set<T>();
         }
-     // Add
+        // Add
         public void Add(T entity)
         {
             dbSet.Add(entity);
@@ -33,7 +33,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         {
             dbSet.AddRange(entites);
         }
-     // Find & Get
+        // Find & Get
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await dbSet.Where(predicate).ToListAsync();
@@ -62,13 +62,19 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             return dbSet.Find(id);
         }
 
-     // Remove
+        // Remove
         public void Remove(T entity)
         {
             dbSet.Remove(entity);
         }
 
-     // Update
+        public void Remove(int id)
+        {
+            T entity = dbSet.Find(id);
+            Remove(entity);
+        }
+
+        // Update
         public void Update(T entity)
         {
             dbSet.Attach(entity);
@@ -83,22 +89,29 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
 
 
         public Task RemoveRangeAsync(IEnumerable<T> entites)
-
-        
-
-        
-
-        public void Remove(int id)
-        {
-            T entity = dbSet.Find(id);
-            Remove(entity);
-        }
-
-       
-
         {
             throw new NotImplementedException();
         }
+
+        public T GetById(int? id)
+        {
+            return dbSet.Find(id);
+            
+        }
+
+
+
+
+
+
+
+
+
+        //public void Update(T entity)
+        //{
+        //    dbSet.Update(entity);
+        //}
+
         //public void Update(T entity)
         //{
         //    dbSet.Update(entity);

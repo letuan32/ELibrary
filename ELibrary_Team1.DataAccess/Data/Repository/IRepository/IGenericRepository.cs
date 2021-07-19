@@ -6,29 +6,23 @@ using System.Threading.Tasks;
 
 namespace ELibrary_Team1.DataAccess.Data.Repository
 {
-    public interface IGenericRepository<T> where T: class
+    public interface IGenericRepository<T> where T : class
     {
         // Add
         void Add(T entity);
-
-
-        T AddRange(T entites);
-        //Task<T> AddAsync(T entity);
+        void AddRange(T entites);
+        Task AddAsync(T entity);
         //Task<T> AddRangeAsync(T entites);
+
         // Remove
-        void Remove(int id);
-        void Remove(T entity);
-        //T RemoveRage(T entites);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
         Task RemoveRangeAsync(IEnumerable<T> entites);
 
-
         // Get
-        T Get(int id);
-        void Remove(T entity);
         IEnumerable<T> GetAll();
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
+        T GetById(int? id);
         T GetById(int id);
         T GetById(string id);
         //Task<T> GetByIdAsync(int id);
@@ -39,8 +33,9 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         //T Find(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
 
-    // Update
+        // Update
         void Update(T entity);
         //Task<T> UpdateAsync(T entity);
     }
 }
+
