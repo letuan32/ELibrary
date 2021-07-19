@@ -73,12 +73,18 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
 
         public T Get(int id)
         {
-            throw new NotImplementedException();
+            return dbSet.Find(id);
         }
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null)
         {
             throw new NotImplementedException();
+        }
+
+        public void Remove(int id)
+        {
+            T entity = dbSet.Find(id);
+            Remove(entity);
         }
         //public void Update(T entity)
         //{
