@@ -74,9 +74,21 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             dbSet.Attach(entity);
             _db.Entry(entity).State = EntityState.Modified;
         }
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            dbSet.RemoveRange(entities);
+        }
+
+
+        public Task RemoveRangeAsync(IEnumerable<T> entites)
+        {
+            throw new NotImplementedException();
+        }
         //public void Update(T entity)
         //{
         //    dbSet.Update(entity);
         //}
+
     }
 }

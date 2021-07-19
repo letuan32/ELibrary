@@ -32,18 +32,17 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
         // GET: Documents
         public IActionResult Index()
         {
-
             return View(_unitOfWork.Document.GetAll());
-
         }
 
+    // Create Document
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             IEnumerable<Category> categoryList = await _unitOfWork.Category.GetAllAsync();
             DocumentViewModel documentVM = new DocumentViewModel()
             {
-
+                // Pass Category list from db.Category to SelectListItem
                 CategoryList = categoryList.Select(l => new SelectListItem
                 {
                     Text = l.Title,
@@ -58,45 +57,135 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                documentVM.Document.Image = UploadedFile(documentVM);
-                _unitOfWork.Document.Add(documentVM.Document);
-
-                _unitOfWork.SaveChange();
-                
-
-
-                foreach (var item in documentVM.SelectedCategory)
+                if(documentVM.ImageFile != null)
                 {
-                    _unitOfWork.DocumentCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
+                    // UploadedFile method: Check if imange exists and copy Image file to webRoot
+                    documentVM.Document.Image = UploadedFile(documentVM);
                 }
-
+               
+                _unitOfWork.Document.Add(documentVM.Document);
+                _unitOfWork.SaveChange();
+                if(documentVM.SelectedCategory != null)
+                {
+                    foreach (var item in documentVM.SelectedCategory)
+                    {
+                        // Add selected category for document to db.DocumentCategory
+                        _unitOfWork.DocumentCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
                 await _unitOfWork.SaveChangeAsync();
-                return RedirectToAction(nameof(Index));
-
-
             }
-            return View(documentVM);
+             
+            
+             return View(documentVM);
 
         }
+    // Edit Document
+        public IActionResult Edit(int id)
+        {
+            var model = new DocumentViewModel();
+            var document = _unitOfWork.Document.GetById(id);
+            var documentCategory = _unitOfWork.DocumentCategory.GetAll().Where(x => x.DocumentId == id);
+            IEnumerable <Category> categoryList = _unitOfWork.Category.GetAll().ToList();
+            model = new DocumentViewModel()
+            {
+                Document = document,
+                SelectedCategory = documentCategory.Select(x => x.CategoryId).ToList(),
+                CategoryList = categoryList.Select(l => new SelectListItem
+                {
+                    Text = l.Title,
+                    Value = l.Id.ToString()
+                })
+            };
+            if(model.Document.Image != null)
+            {
+                string wwwrootPath = _hostEnvironment.WebRootPath;
+                string path = Path.Combine(wwwrootPath + "/images/" + document.Image);
+                using (var stream = System.IO.File.OpenRead(path))
+                {
+                    model.ImageFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+                }
+            }
+                
+            return View(model);
+
+        }
+        [HttpPost]
+        public IActionResult Edit(DocumentViewModel documentVM)
+        {
+            if(ModelState.IsValid)
+            {
+                
+                if (documentVM.ImageFile != null)
+                {
+
+                    documentVM.Document.Image = UploadedFile(documentVM);
+                }
+                _unitOfWork.Document.Update(documentVM.Document);
+                if (documentVM.SelectedCategory != null)
+                {
+                    var oldDocumentCategories = _unitOfWork.DocumentCategory.GetAll().Where(x => x.DocumentId == documentVM.Document.Id);
+                    _unitOfWork.DocumentCategory.RemoveRange(oldDocumentCategories);
+                    foreach (var item in documentVM.SelectedCategory)
+                    {
+                        _unitOfWork.DocumentCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
+                    }
+                }
+                _unitOfWork.SaveChange();
+                return RedirectToAction(nameof(Index));
+            }
+            _unitOfWork.SaveChange();
+            
+            return View(documentVM);
+        }
+
+        // Delete Method
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private string UploadedFile(DocumentViewModel model)
         {
-            string FileName = null;
-            if (model.ImageFile != null)
+            string wwwrootPath = _hostEnvironment.WebRootPath;
+            string newFileName = null;
+
+            if(model.Document.Image != null) // Delete old image
             {
-                //save image to wwwroot folder
-                
-                string wwwrootPath = _hostEnvironment.WebRootPath;
-                FileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
-                string extension = Path.GetExtension(model.ImageFile.FileName);
-                FileName = FileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwrootPath + "/images/" + FileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    model.ImageFile.CopyTo(fileStream);
-                }
+                string oldFilePath = Path.Combine(wwwrootPath + "/images/" + model.Document.Image);
+                System.IO.File.Delete(oldFilePath);
+            }    
+
+            newFileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+            string extension = Path.GetExtension(model.ImageFile.FileName);
+            newFileName = newFileName + Guid.NewGuid().ToString() + extension;
+            string newFilePath = Path.Combine(wwwrootPath + "/images/" + newFileName);
+            
+            using (var fileStream = new FileStream(newFilePath, FileMode.Create))
+            {
+                model.ImageFile.CopyTo(fileStream);
             }
-            return FileName;
+         
+            return newFileName;
         }
     }
 

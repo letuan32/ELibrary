@@ -13,9 +13,10 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         Task AddAsync(T entity);
         //Task<T> AddRangeAsync(T entites);
 
-        // Remove
+   // Remove
         void Remove(T entity);
-        //T RemoveRage(T entites);
+        void RemoveRange(IEnumerable<T> entities);
+        Task RemoveRangeAsync(IEnumerable<T> entites);
 
     // Get
         IEnumerable<T> GetAll() ;
