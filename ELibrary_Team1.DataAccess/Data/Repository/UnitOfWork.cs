@@ -16,6 +16,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         public IDocumentRepository Document { get; private set; }
         public IUpdateRequestRepository UpdateRequest { get; private set; }
         public IUserVoteRepository UserVote { get; private set; }
+        public ISP_Call SP_Call { get; private set; }
 
         public ISP_Call SP_Call { get; set; }
 

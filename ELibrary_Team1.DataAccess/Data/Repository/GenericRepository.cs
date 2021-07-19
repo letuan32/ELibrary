@@ -75,6 +75,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             _db.Entry(entity).State = EntityState.Modified;
         }
 
+
         public void RemoveRange(IEnumerable<T> entities)
         {
             dbSet.RemoveRange(entities);
@@ -82,6 +83,19 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
 
 
         public Task RemoveRangeAsync(IEnumerable<T> entites)
+
+        
+
+        
+
+        public void Remove(int id)
+        {
+            T entity = dbSet.Find(id);
+            Remove(entity);
+        }
+
+       
+
         {
             throw new NotImplementedException();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -7,19 +8,26 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
 {
     public interface IGenericRepository<T> where T: class
     {
-    // Add
+        // Add
         void Add(T entity);
-        void AddRange(T entites);
-        Task AddAsync(T entity);
-        //Task<T> AddRangeAsync(T entites);
 
-   // Remove
+
+        T AddRange(T entites);
+        //Task<T> AddAsync(T entity);
+        //Task<T> AddRangeAsync(T entites);
+        // Remove
+        void Remove(int id);
+        void Remove(T entity);
+        //T RemoveRage(T entites);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
         Task RemoveRangeAsync(IEnumerable<T> entites);
 
-    // Get
-        IEnumerable<T> GetAll() ;
+
+        // Get
+        T Get(int id);
+        void Remove(T entity);
+        IEnumerable<T> GetAll();
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
         T GetById(int id);
         T GetById(string id);

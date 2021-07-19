@@ -29,9 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Authenticated\Controllers\" />
+
+
     <Folder Include="Controllers\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>

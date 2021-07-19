@@ -125,13 +125,17 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-                            ConcurrencyStamp = "c27e2643-2c89-4c63-8f3e-d6bf62b62928",
+
+                            ConcurrencyStamp = "cf2f5e83-f207-43b8-be11-20c3fd89a9b8",
+
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "447c9ad9-c70d-40b6-94d7-16b5c64cd792",
+
+                            SecurityStamp = "30469571-e492-43e2-91a3-4f6b6729f73f",
+
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
