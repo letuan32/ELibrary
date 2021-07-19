@@ -24,6 +24,10 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         {
             dbSet.Add(entity);
         }
+        public async Task AddAsync(T entity)
+        {
+            await dbSet.AddAsync(entity);
+        }
 
         public void AddRange(T entites)
         {
@@ -71,15 +75,18 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             _db.Entry(entity).State = EntityState.Modified;
         }
 
-        public T Get(int id)
+
+        public void RemoveRange(IEnumerable<T> entities)
         {
-            return dbSet.Find(id);
+            dbSet.RemoveRange(entities);
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null)
-        {
-            throw new NotImplementedException();
-        }
+
+        public Task RemoveRangeAsync(IEnumerable<T> entites)
+
+        
+
+        
 
         public void Remove(int id)
         {
@@ -87,7 +94,8 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             Remove(entity);
         }
 
-        T IGenericRepository<T>.AddRange(T entites)
+       
+
         {
             throw new NotImplementedException();
         }
@@ -95,5 +103,6 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         //{
         //    dbSet.Update(entity);
         //}
+
     }
 }

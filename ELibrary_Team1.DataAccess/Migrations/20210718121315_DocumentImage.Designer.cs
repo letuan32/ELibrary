@@ -4,14 +4,16 @@ using ELibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    partial class ELibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210718121315_DocumentImage")]
+    partial class DocumentImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,17 +127,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-
-                            ConcurrencyStamp = "cf2f5e83-f207-43b8-be11-20c3fd89a9b8",
-
+                            ConcurrencyStamp = "c27e2643-2c89-4c63-8f3e-d6bf62b62928",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-
-                            SecurityStamp = "30469571-e492-43e2-91a3-4f6b6729f73f",
-
+                            SecurityStamp = "447c9ad9-c70d-40b6-94d7-16b5c64cd792",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

@@ -9,10 +9,11 @@ namespace ELibrary_Team_1.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime UpdateDate { get; set; } = DateTime.Today;
         public string Description { get; set; }
         public Boolean IsPublic { get; set; }
         public double AverageRate { get; set; }
+        public string Image { get; set; }
 
         //
         public ICollection<DocumentCategory> DocumentCategories { get; set; }
