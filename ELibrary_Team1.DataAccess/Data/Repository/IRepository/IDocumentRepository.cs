@@ -2,8 +2,7 @@
 namespace ELibrary_Team1.DataAccess.Data.Repository.IRepository
 
 {
-    public interface IDocumentRepository:IGenericRepository<Document>
+    public interface IDocumentRepository : IGenericRepository<Document>
     {
-
     }
 }

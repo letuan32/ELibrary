@@ -26,7 +26,12 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         Task RemoveRangeAsync(IEnumerable<T> entites);
 
         // Get
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = null
+            );
+
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
         T GetById(int? id);
         T GetById(int id);

@@ -1,0 +1,57 @@
+﻿@model ELibrary_Team_1.ViewModels.ChapterViewModel
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Cha[ter";
+}
+
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Chapter.Id != null)
+        {
+            title = "Edit Chapter";
+            <input type="hidden" asp-for="Chapter.Id" />
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Chapter.Content"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Chapter.Content" class="form-control" />
+                    <textarea asp-validation-for="Chapter.Content" class="text-danger"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Chapter.IsUnlock"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-check-input" asp-for="Chapter.IsUnlock" /> @Html.DisplayNameFor(model => model.Chapter.IsUnlock)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+
+                    @if (Model.Chapter.Id != null)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.Chapter.Id" />
+                    }
+                    else
+                    {
+                        <partial name="_CreateAndBackToListButton" />
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
