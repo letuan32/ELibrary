@@ -13,11 +13,21 @@ namespace ELibrary_Team_1.ViewModels
     {
         public Document Document { get; set; }
 
-        [Display(Name = "Categories")]
-        public List<int> SelectedCategory { get; set; }
+        //[Display(Name = "Category Id")]
+        //public list<int> selectedcategory { get; set; }
+        [Display(Name = "Image File")]
         public IFormFile ImageFile { get; set; }
-        
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        [Display(Name = "Current Chapters")]
+        public int NoChapter { get; set; }
+        [Display(Name = "User Access")]
+        public int TotalAccess { get; set; }
+        [Display(Name = "User Vote")]
+        public int TotalVote { get; set; }
+
+        [Display(Name = "Category")]
+        public IEnumerable<SelectListItem> CategorySelectList { get; set; }
+
+        public List<int> CurrentCategoryList { get; set; }
 
 
     }

@@ -21,6 +21,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _hostEnvironment;
+       
 
 
         public DocumentController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
@@ -29,9 +30,10 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
             this._hostEnvironment = hostEnvironment;
         }
 
-        // GET: Documents
+    // GET: Documents
         public IActionResult Index()
         {
+
             return View(_unitOfWork.Document.GetAll());
         }
 
@@ -39,15 +41,17 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+
             IEnumerable<Category> categoryList = await _unitOfWork.Category.GetAllAsync();
             DocumentViewModel documentVM = new DocumentViewModel()
             {
                 // Pass Category list from db.Category to SelectListItem
-                CategoryList = categoryList.Select(l => new SelectListItem
+                CategorySelectList = categoryList.Select(l => new SelectListItem
                 {
                     Text = l.Title,
                     Value = l.Id.ToString()
                 })
+                
             };
             return View(documentVM);
         }
@@ -63,36 +67,41 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
                     documentVM.Document.Image = UploadedFile(documentVM);
                 }
                
-                _unitOfWork.Document.Add(documentVM.Document);
-                _unitOfWork.SaveChange();
-                if(documentVM.SelectedCategory != null)
+                //_unitOfWork.Document.Add(documentVM.Document);
+                //_unitOfWork.SaveChange();
+                if(documentVM.CategorySelectList != null)
                 {
-                    foreach (var item in documentVM.SelectedCategory)
+                   
+                    foreach (var item in documentVM.CategorySelectList)
                     {
-                        // Add selected category for document to db.DocumentCategory
-                        _unitOfWork.DocumentCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
+                        var documentCategory = new DocumentCategory() { DocumentId = documentVM.Document.Id, CategoryId = Int32.Parse(item.Value) };
+                        documentVM.Document.DocumentCategories.Add(documentCategory);
                     }
-                    return RedirectToAction(nameof(Index));
                 }
+                _unitOfWork.Document.Add(documentVM.Document);
                 await _unitOfWork.SaveChangeAsync();
+                return RedirectToAction(nameof(Index));
             }
-             
-            
              return View(documentVM);
-
         }
+
+
     // Edit Document
         public IActionResult Edit(int id)
         {
+
             var model = new DocumentViewModel();
-            var document = _unitOfWork.Document.GetById(id);
-            var documentCategory = _unitOfWork.DocumentCategory.GetAll().Where(x => x.DocumentId == id);
+            var document = _unitOfWork.Document.FirstOrDefault(x => x.Id == id, includeProperties: "DocumentCategories");
+            //var documentCategory = document.DocumentCategories;
             IEnumerable <Category> categoryList = _unitOfWork.Category.GetAll().ToList();
+            var currentCategory = document.DocumentCategories.ToList();
             model = new DocumentViewModel()
             {
                 Document = document,
-                SelectedCategory = documentCategory.Select(x => x.CategoryId).ToList(),
-                CategoryList = categoryList.Select(l => new SelectListItem
+                CurrentCategoryList = currentCategory.Select(x=>x.CategoryId).ToList(),
+                
+                //SelectedCategory = documentCategory.Select(x => x.CategoryId).ToList(),
+                CategorySelectList = categoryList.Select(l => new SelectListItem
                 {
                     Text = l.Title,
                     Value = l.Id.ToString()
@@ -120,16 +129,22 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
                 {
                     documentVM.Document.Image = UploadedFile(documentVM);
                 }
-                _unitOfWork.Document.Update(documentVM.Document);
-                if (documentVM.SelectedCategory != null)
+                //_unitOfWork.Document.Update(documentVM.Document);
+                if (documentVM.CurrentCategoryList != null)
                 {
-                    var oldDocumentCategories = _unitOfWork.DocumentCategory.GetAll().Where(x => x.DocumentId == documentVM.Document.Id);
+                    var oldDocumentCategories = _unitOfWork.DocumentCategory.GetAll(x => x.DocumentId == documentVM.Document.Id);
+
                     _unitOfWork.DocumentCategory.RemoveRange(oldDocumentCategories);
-                    foreach (var item in documentVM.SelectedCategory)
+                    //_unitOfWork.SaveChange();
+                    var updateCategory = new List<DocumentCategory>();
+                    foreach (var item in documentVM.CurrentCategoryList)
                     {
-                        _unitOfWork.DocumentCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
+                        updateCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
                     }
+                    _unitOfWork.DocumentCategory.AddRange(updateCategory);
+                    
                 }
+                _unitOfWork.Document.Update(documentVM.Document);
                 _unitOfWork.SaveChange();
                 return RedirectToAction(nameof(Index));
             }
@@ -164,6 +179,32 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
         }
 
 
+        // Get Details
+
+        public IActionResult Details(int id)
+        {
+            var document = _unitOfWork.Document.FirstOrDefault(x => x.Id == id, includeProperties: "Chapters,DocumentCategories.Category,AccessRequests,UserVotes");
+            var noChapter = document.Chapters.Count(); // Count number of current chapters
+            //var totalChapter = document.Chapters.Select(x => x.TotalChapter).Count(); TODO: Add field "TotalChapter" that store total chapter of document
+            var totalAccess = document.AccessRequests.Where(x => x.IsAccept == true).Count(); // Count total accepted request;
+            var totalVote = document.UserVotes.Count();
+            var selectedCategory = new SelectList(document.DocumentCategories, "Category.Id", "Category.Title");
+
+            var documentVM = new DocumentViewModel()
+            {
+                Document = document,
+                NoChapter = noChapter,
+                TotalAccess = totalAccess,
+                TotalVote = totalVote,
+                CategorySelectList = selectedCategory,
+            };
+
+          
+  
+            return View(documentVM);
+        }
+
+       
 
 
 

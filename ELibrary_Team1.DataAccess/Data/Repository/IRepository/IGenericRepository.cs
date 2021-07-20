@@ -10,7 +10,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
     {
         // Add
         void Add(T entity);
-        void AddRange(T entites);
+        void AddRange(IEnumerable<T> entites);
         Task AddAsync(T entity);
         //Task<T> AddRangeAsync(T entites);
 
@@ -21,7 +21,15 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
 
         // Get
         IEnumerable<T> GetAll();
-        Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
+        IEnumerable<T> GetAll(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = null
+            );
+        T FirstOrDefault(
+            Expression<Func<T, bool>> predicate,
+            string includeProperties = null);
+
         T GetById(int? id);
         T GetById(int id);
         T GetById(string id);
