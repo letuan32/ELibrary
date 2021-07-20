@@ -19,17 +19,21 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             _db = db;
             this.dbSet = _db.Set<T>();
         }
-     // Add
+        // Add
         public void Add(T entity)
         {
             dbSet.Add(entity);
+        }
+        public async Task AddAsync(T entity)
+        {
+            await dbSet.AddAsync(entity);
         }
 
         public void AddRange(T entites)
         {
             dbSet.AddRange(entites);
         }
-     // Find & Get
+        // Find & Get
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await dbSet.Where(predicate).ToListAsync();
@@ -58,27 +62,10 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             return dbSet.Find(id);
         }
 
-     // Remove
+        // Remove
         public void Remove(T entity)
         {
             dbSet.Remove(entity);
-        }
-
-     // Update
-        public void Update(T entity)
-        {
-            dbSet.Attach(entity);
-            _db.Entry(entity).State = EntityState.Modified;
-        }
-
-        public T Get(int id)
-        {
-            return dbSet.Find(id);
-        }
-
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null)
-        {
-            throw new NotImplementedException();
         }
 
         public void Remove(int id)
@@ -87,9 +74,29 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             Remove(entity);
         }
 
-        //public void Update(T entity)
-        //{
-        //    dbSet.Update(entity);
-        //}
+        // Update
+        public void Update(T entity)
+        {
+            dbSet.Attach(entity);
+            _db.Entry(entity).State = EntityState.Modified;
+        }
+
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            dbSet.RemoveRange(entities);
+        }
+
+
+        public Task RemoveRangeAsync(IEnumerable<T> entites)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetById(int? id)
+        {
+            return dbSet.Find(id);
+            
+        }
     }
 }
