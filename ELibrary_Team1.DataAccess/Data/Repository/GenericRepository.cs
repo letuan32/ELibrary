@@ -87,10 +87,6 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             Remove(entity);
         }
 
-        T IGenericRepository<T>.AddRange(T entites)
-        {
-            throw new NotImplementedException();
-        }
         //public void Update(T entity)
         //{
         //    dbSet.Update(entity);
