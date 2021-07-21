@@ -42,8 +42,11 @@ namespace ELibrary_Team_1
             // Repository and Service
             services.AddRepositoryServices();
 
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
-         
 
             // Razor page
 

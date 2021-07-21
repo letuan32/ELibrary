@@ -49,7 +49,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _unitOfWork.Chapter.GetAll(includeProperties: "Documents");
+            var allObj = _unitOfWork.Chapter.GetAll(includeProperties: "Document");
             return Json(new { data = allObj }); 
         }
 
