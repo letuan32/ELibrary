@@ -39,6 +39,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
             return View(_unitOfWork.Document.GetAll());
         }
 
+///>>>>>>>>>>>>>>>>>>>>>>>>>> Entity Frammework >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     // Create Document
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -132,7 +133,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
                     documentVM.Document.Image = UploadedFile(documentVM);
                 }
                 //_unitOfWork.Document.Update(documentVM.Document);
-                if (documentVM.CurrentCategoryList != null)
+                if (documentVM.CategorySelectList != null)
                 {
                     var oldDocumentCategories = _unitOfWork.DocumentCategory.GetAll(x => x.DocumentId == documentVM.Document.Id);
 
@@ -154,7 +155,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
             
             return View(documentVM);
         }
-
+ ///>>>>>>>>>>>>>>>>>>>>>>>>>> Entity Frammework >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         // Get Details
         [NoDirectAccess]
         public IActionResult Details(int id)
@@ -177,19 +178,6 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
 
             return View(documentVM);
         }
-
-       
-
-
-
-
-
-
-
-
-
-
-
 
 
         private string UploadedFile(DocumentViewModel model)
@@ -282,9 +270,6 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
                         // UploadedFile method: Check if imange exists and copy Image file to webRoot
                         documentVM.Document.Image = UploadedFile(documentVM);
                     }
-
-                    //_unitOfWork.Document.Add(documentVM.Document);
-                    //_unitOfWork.SaveChange();
                     if (documentVM.CurrentCategoryList != null)
                     {
 
@@ -337,7 +322,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
             return View(document);
         }
 
-        // POST: Transaction/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
@@ -347,9 +332,6 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
             _unitOfWork.SaveChange();
             return Json(new { html = Helper.RenderRazorViewToString(this, "_ViewAll", _unitOfWork.Document.GetAll())});
         }
-
-
-
 
 
         /////////----END-----------CRUD using Popup-Dialog//////////
