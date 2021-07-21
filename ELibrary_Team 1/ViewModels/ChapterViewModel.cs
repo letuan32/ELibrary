@@ -13,5 +13,6 @@ namespace ELibrary_Team_1.ViewModels
     {
         public Chapter Chapter { get; set; }
         public IEnumerable<SelectListItem> DocumentList { get; set; }
+        public string DocumentTitle { get; set; }
     }
 }

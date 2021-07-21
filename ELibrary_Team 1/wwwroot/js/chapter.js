@@ -11,18 +11,18 @@ function loadDataTable() {
             "url": "/Authenticated/Chapter/GetAll"
         },
         "columns": [
-            { "data": "content", "width": "30%" },
-            { "data": "isunlock", "width": "30%" },
-            { "data": "document.title", "width": "30%" },
+            { "data": "documentId", "width": "10%" },
+            { "data": "content", "width": "65%" },
+            { "data": "isUnlock", "width": "10%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
                             <div class="text-center">
-                                <a href="/Authenticated/Chapter/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                <a href="/Authenticated/Chapter/Upsert/${data}" class="btn btn-success text-white">
                                     <i class="fas fa-edit"></i> 
                                 </a>
-                                <a onclick=Delete("/Authenticated/Chapter/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                <a onclick=Delete("/Authenticated/Chapter/Delete/${data}") class="btn btn-danger text-white">
                                     <i class="fas fa-trash-alt"></i> 
                                 </a>
                             </div>
