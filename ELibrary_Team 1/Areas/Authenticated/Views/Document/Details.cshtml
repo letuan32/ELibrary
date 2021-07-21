@@ -1,8 +1,6 @@
 ﻿@model ELibrary_Team_1.ViewModels.DocumentViewModel
 
-@{
-    ViewData["Title"] = "Details";
-}
+@{ Layout = null; }
 
 <h1>Details</h1>
 
@@ -32,7 +30,7 @@
         <dd class="col-sm-9">
             @foreach (var category in Model.Document.DocumentCategories)
             {
-            <span style="background-color:#868c96;">@category.Category.Title</span> <span>&ensp;</span>
+                <span style="background-color:#868c96;">@category.Category.Title</span> <span>&ensp;</span>
             }
             @*@Html.DisplayFor(model => model.Document.TotalChapter)*@
         </dd>
