@@ -125,13 +125,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 5,
-                            ConcurrencyStamp = "14ef6b41-0118-4af4-b573-90d3c43b9c20",
+                            ConcurrencyStamp = "702a9464-4359-4c11-b145-aa93be0613dd",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9d0a28c1-7f04-41c7-a53b-9ecbe8444fb4",
+                            SecurityStamp = "7627d250-ac7f-4780-a035-af1b58b15794",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -172,8 +172,10 @@ namespace ELibrary_Team1.DataAccess.Migrations
 
             modelBuilder.Entity("ELibrary_Team_1.Models.Chapter", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -184,6 +186,9 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.Property<bool>("IsUnlock")
                         .HasColumnType("bit");
 
+                    b.Property<string>("NumberChapter")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DocumentId");
@@ -193,17 +198,19 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "Doc1-Chap1",
+                            Id = 1,
                             Content = "Introduction to Object and Class",
                             DocumentId = 1,
-                            IsUnlock = true
+                            IsUnlock = true,
+                            NumberChapter = "Chapter 1"
                         },
                         new
                         {
-                            Id = "Doc2-Chap1",
+                            Id = 2,
                             Content = "Why Clean Code",
                             DocumentId = 2,
-                            IsUnlock = true
+                            IsUnlock = true,
+                            NumberChapter = "Chapter 1"
                         });
                 });
 

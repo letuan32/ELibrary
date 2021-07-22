@@ -44,6 +44,26 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
             return View(chaptervm);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(ChapterViewModel chapterViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (chapterViewModel.Chapter.Id == 0)
+                {
+                    _unitOfWork.Chapter.Add(chapterViewModel.Chapter);
+                }
+                else
+                {
+                    _unitOfWork.Chapter.Update(chapterViewModel.Chapter);
+                }
+                _unitOfWork.SaveChange();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(chapterViewModel);
+        }
+
 
         #region API CALLS
         [HttpGet]
