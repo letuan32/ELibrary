@@ -36,126 +36,125 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
        
         public IActionResult Index()
         {
-
             return View(_unitOfWork.Document.GetAll());
         }
 
 ///>>>>>>>>>>>>>>>>>>>>>>>>>> Entity Frammework >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    // Create Document
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
+    //// Create Document
+    //    [HttpGet]
+    //    public async Task<IActionResult> Create()
+    //    {
 
-            IEnumerable<Category> categoryList = await _unitOfWork.Category.GetAllAsync();
-            DocumentViewModel documentVM = new DocumentViewModel()
-            {
-                // Pass Category list from db.Category to SelectListItem
-                CategorySelectList = categoryList.Select(l => new SelectListItem
-                {
-                    Text = l.Title,
-                    Value = l.Id.ToString()
-                })
+    //        IEnumerable<Category> categoryList = await _unitOfWork.Category.GetAllAsync();
+    //        DocumentViewModel documentVM = new DocumentViewModel()
+    //        {
+    //            // Pass Category list from db.Category to SelectListItem
+    //            CategorySelectList = categoryList.Select(l => new SelectListItem
+    //            {
+    //                Text = l.Title,
+    //                Value = l.Id.ToString()
+    //            })
                 
-            };
-            return View(documentVM);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DocumentViewModel documentVM)
-        {
-            if (ModelState.IsValid)
-            {
-                if(documentVM.ImageFile != null)
-                {
-                    // UploadedFile method: Check if imange exists and copy Image file to webRoot
-                    documentVM.Document.Image = UploadedFile(documentVM);
-                }
+    //        };
+    //        return View(documentVM);
+    //    }
+    //    [HttpPost]
+    //    [ValidateAntiForgeryToken]
+    //    public async Task<IActionResult> Create(DocumentViewModel documentVM)
+    //    {
+    //        if (ModelState.IsValid)
+    //        {
+    //            if(documentVM.ImageFile != null)
+    //            {
+    //                // UploadedFile method: Check if imange exists and copy Image file to webRoot
+    //                documentVM.Document.Image = UploadedFile(documentVM);
+    //            }
                
-                //_unitOfWork.Document.Add(documentVM.Document);
-                //_unitOfWork.SaveChange();
-                if(documentVM.CategorySelectList != null)
-                {
+    //            //_unitOfWork.Document.Add(documentVM.Document);
+    //            //_unitOfWork.SaveChange();
+    //            if(documentVM.CategorySelectList != null)
+    //            {
                    
-                    foreach (var item in documentVM.CategorySelectList)
-                    {
-                        var documentCategory = new DocumentCategory() { DocumentId = documentVM.Document.Id, CategoryId = Int32.Parse(item.Value) };
-                        documentVM.Document.DocumentCategories.Add(documentCategory);
-                    }
-                }
-                _unitOfWork.Document.Add(documentVM.Document);
-                await _unitOfWork.SaveChangeAsync();
-                return RedirectToAction(nameof(Index));
-            }
-             return View(documentVM);
-        }
-
+    //                foreach (var item in documentVM.CategorySelectList)
+    //                {
+    //                    var documentCategory = new DocumentCategory() { DocumentId = documentVM.Document.Id, CategoryId = Int32.Parse(item.Value) };
+    //                    documentVM.Document.DocumentCategories.Add(documentCategory);
+    //                }
+    //            }
+    //            _unitOfWork.Document.Add(documentVM.Document);
+    //            await _unitOfWork.SaveChangeAsync();
+    //            return RedirectToAction(nameof(Index));
+    //        }
+    //         return View(documentVM);
+    //    }
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> End Create>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     // Edit Document
-        public IActionResult Edit(int id)
-        {
+        //public IActionResult Edit(int id)
+        //{
 
-            var model = new DocumentViewModel();
-            var document = _unitOfWork.Document.FirstOrDefault(x => x.Id == id, includeProperties: "DocumentCategories");
-            //var documentCategory = document.DocumentCategories;
-            IEnumerable <Category> categoryList = _unitOfWork.Category.GetAll().ToList();
-            var currentCategory = document.DocumentCategories.ToList();
-            model = new DocumentViewModel()
-            {
-                Document = document,
-                CurrentCategoryList = currentCategory.Select(x=>x.CategoryId).ToList(),
+        //    var model = new DocumentViewModel();
+        //    var document = _unitOfWork.Document.FirstOrDefault(x => x.Id == id, includeProperties: "DocumentCategories");
+        //    //var documentCategory = document.DocumentCategories;
+        //    IEnumerable <Category> categoryList = _unitOfWork.Category.GetAll().ToList();
+        //    var currentCategory = document.DocumentCategories.ToList();
+        //    model = new DocumentViewModel()
+        //    {
+        //        Document = document,
+        //        CurrentCategoryList = currentCategory.Select(x=>x.CategoryId).ToList(),
                 
-                //SelectedCategory = documentCategory.Select(x => x.CategoryId).ToList(),
-                CategorySelectList = categoryList.Select(l => new SelectListItem
-                {
-                    Text = l.Title,
-                    Value = l.Id.ToString()
-                })
-            };
-            if(model.Document.Image != null)
-            {
-                string wwwrootPath = _hostEnvironment.WebRootPath;
-                string path = Path.Combine(wwwrootPath + "/images/" + document.Image);
-                using (var stream = System.IO.File.OpenRead(path))
-                {
-                    model.ImageFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-                }
-            }
+        //        //SelectedCategory = documentCategory.Select(x => x.CategoryId).ToList(),
+        //        CategorySelectList = categoryList.Select(l => new SelectListItem
+        //        {
+        //            Text = l.Title,
+        //            Value = l.Id.ToString()
+        //        })
+        //    };
+        //    if(model.Document.Image != null)
+        //    {
+        //        string wwwrootPath = _hostEnvironment.WebRootPath;
+        //        string path = Path.Combine(wwwrootPath + "/images/" + document.Image);
+        //        using (var stream = System.IO.File.OpenRead(path))
+        //        {
+        //            model.ImageFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+        //        }
+        //    }
                 
-            return View(model);
+        //    return View(model);
 
-        }
-        [HttpPost]
-        public IActionResult Edit(DocumentViewModel documentVM)
-        {
-            if(ModelState.IsValid)
-            {
-                if (documentVM.ImageFile != null)
-                {
-                    documentVM.Document.Image = UploadedFile(documentVM);
-                }
-                //_unitOfWork.Document.Update(documentVM.Document);
-                if (documentVM.CategorySelectList != null)
-                {
-                    var oldDocumentCategories = _unitOfWork.DocumentCategory.GetAll(x => x.DocumentId == documentVM.Document.Id);
+        //}
+        //[HttpPost]
+        //public IActionResult Edit(DocumentViewModel documentVM)
+        //{
+        //    if(ModelState.IsValid)
+        //    {
+        //        if (documentVM.ImageFile != null)
+        //        {
+        //            documentVM.Document.Image = UploadedFile(documentVM);
+        //        }
+        //        //_unitOfWork.Document.Update(documentVM.Document);
+        //        if (documentVM.CategorySelectList != null)
+        //        {
+        //            var oldDocumentCategories = _unitOfWork.DocumentCategory.GetAll(x => x.DocumentId == documentVM.Document.Id);
 
-                    _unitOfWork.DocumentCategory.RemoveRange(oldDocumentCategories);
-                    //_unitOfWork.SaveChange();
-                    var updateCategory = new List<DocumentCategory>();
-                    foreach (var item in documentVM.CurrentCategoryList)
-                    {
-                        updateCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
-                    }
-                    _unitOfWork.DocumentCategory.AddRange(updateCategory);
+        //            _unitOfWork.DocumentCategory.RemoveRange(oldDocumentCategories);
+        //            //_unitOfWork.SaveChange();
+        //            var updateCategory = new List<DocumentCategory>();
+        //            foreach (var item in documentVM.CurrentCategoryList)
+        //            {
+        //                updateCategory.Add(new DocumentCategory { DocumentId = documentVM.Document.Id, CategoryId = item });
+        //            }
+        //            _unitOfWork.DocumentCategory.AddRange(updateCategory);
                     
-                }
-                _unitOfWork.Document.Update(documentVM.Document);
-                _unitOfWork.SaveChange();
-                return RedirectToAction(nameof(Index));
-            }
-            _unitOfWork.SaveChange();
+        //        }
+        //        _unitOfWork.Document.Update(documentVM.Document);
+        //        _unitOfWork.SaveChange();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    _unitOfWork.SaveChange();
             
-            return View(documentVM);
-        }
+        //    return View(documentVM);
+        //}
  ///>>>>>>>>>>>>>>>>>>>>>>>>>> Entity Frammework >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         // Get Details
         [NoDirectAccess]
