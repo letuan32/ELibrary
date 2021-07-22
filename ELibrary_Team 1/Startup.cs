@@ -1,5 +1,6 @@
 using ELibrary.Data;
 using ELibrary_Team_1.Models;
+using ELibrary_Team1.DataAccess.Data.Initializer;
 using ELibrary_Team1.DataAccess.Data.Repository;
 using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
@@ -33,12 +34,12 @@ namespace ELibrary_Team_1
 
 
 
-            services.AddDefaultIdentity<AppUser>()
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ELibraryDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-
+            services.AddScoped<IDbInitializer, DbInitializer>();
             // Repository and Service
             services.AddRepositoryServices();
 
@@ -53,11 +54,12 @@ namespace ELibrary_Team_1
             services.AddRazorPages();
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+               
             }
             else
             {
@@ -71,7 +73,8 @@ namespace ELibrary_Team_1
             app.UseRouting();
 
             app.UseAuthorization();
-            
+            app.UseAuthentication();
+            dbInitializer.Initialize();
 
             app.UseEndpoints(endpoints =>
             {
