@@ -11,8 +11,7 @@ function loadDataTable() {
             "url": "/Authenticated/Chapter/GetAll"
         },
         "columns": [
-            { "data": "document.title", "width": "10%" },
-            { "data": "numberchapter", "width": "30%" },
+            { "data": "document.title", "width": "20%" },
             { "data": "content", "width": "65%" },
             { "data": "isUnlock", "width": "10%" },
             {

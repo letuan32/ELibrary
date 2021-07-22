@@ -58,7 +58,6 @@ namespace ELibrary.Data.Extensions
                 new Chapter
                 {
                     Id = 1,
-                    NumberChapter = "Chapter 1",
                     DocumentId = 1,
                     Content = "Introduction to Object and Class",
                     IsUnlock = true,
@@ -67,7 +66,6 @@ namespace ELibrary.Data.Extensions
                 new Chapter
                 {
                     Id = 2,
-                    NumberChapter = "Chapter 1",
                     DocumentId = 2,
                     Content = "Why Clean Code",
                     IsUnlock = true,
