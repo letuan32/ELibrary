@@ -100,7 +100,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             
         }
 
-        
+
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null)
         {
@@ -138,24 +138,6 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             }
             return query.FirstOrDefault();
         }
-
-
-
-
-
-
-
-
-
-        //public void Update(T entity)
-        //{
-        //    dbSet.Update(entity);
-        //}
-
-        //public void Update(T entity)
-        //{
-        //    dbSet.Update(entity);
-        //}
 
     }
 }

@@ -8,19 +8,21 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/Authenticated/Category/GetAll"
+            "url": "/Authenticated/Chapter/GetAll"
         },
         "columns": [
-            { "data": "title", "width": "60%" },
+            { "data": "document.title", "width": "10%" },
+            { "data": "content", "width": "65%" },
+            { "data": "isUnlock", "width": "10%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
                             <div class="text-center">
-                                <a href="/Authenticated/Category/Upsert/${data}" class="btn btn-success text-white">
+                                <a href="/Authenticated/Chapter/Upsert/${data}" class="btn btn-success text-white">
                                     <i class="fas fa-edit"></i> 
                                 </a>
-                                <a onclick=Delete("/Authenticated/Category/Delete/${data}") class="btn btn-danger text-white">
+                                <a onclick=Delete("/Authenticated/Chapter/Delete/${data}") class="btn btn-danger text-white">
                                     <i class="fas fa-trash-alt"></i> 
                                 </a>
                             </div>

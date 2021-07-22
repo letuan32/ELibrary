@@ -38,7 +38,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
 
             return View(_unitOfWork.Document.GetAll());
         }
-
+        
     // Create Document
         [HttpGet]
         public async Task<IActionResult> Create()
