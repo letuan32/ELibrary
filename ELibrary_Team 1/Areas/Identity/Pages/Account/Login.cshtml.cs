@@ -98,7 +98,11 @@ namespace ELibrary_Team_1.Areas.Identity.Pages.Account
                         result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                     }
                 }
-                result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                else
+                {
+                    result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                }
+                
 
                 if (result.Succeeded)
                 {
