@@ -1,5 +1,6 @@
 ﻿
 using ELibrary_Team_1.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace ELibrary.Data.Extensions
         {
 
             // Identity
+            PasswordHasher<AppUser> passwordHasher = new PasswordHasher<AppUser>();
             modelBuilder.Entity<AppUser>().HasData(
                 new AppUser
                 {
@@ -26,11 +28,9 @@ namespace ELibrary.Data.Extensions
                     TwoFactorEnabled = false,
                     PhoneNumberConfirmed = false,
                     EmailConfirmed = false,
+                });
 
-                }
-            );
-            // 
-            // Document Table //
+
             modelBuilder.Entity<Document>().HasData(
                 new Document
                 {
