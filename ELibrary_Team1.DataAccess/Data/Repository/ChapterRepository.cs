@@ -10,5 +10,6 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
         {
             _db = db;
         }
+        
     }
 }
