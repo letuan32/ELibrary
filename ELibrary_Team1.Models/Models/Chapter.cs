@@ -6,7 +6,8 @@ namespace ELibrary_Team_1.Models
 {
     public class Chapter
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string NumberChapter { get; set; }
         public int DocumentId { get; set; }
         public string Content { get; set; }
         public Boolean IsUnlock { get; set; }

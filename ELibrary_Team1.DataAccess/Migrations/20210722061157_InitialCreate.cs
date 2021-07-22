@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
-    public partial class Db_19_07 : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,7 +104,9 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 name: "Chapters",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumberChapter = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DocumentId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsUnlock = table.Column<bool>(type: "bit", nullable: false)
@@ -329,15 +331,15 @@ namespace ELibrary_Team1.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 5, "14ef6b41-0118-4af4-b573-90d3c43b9c20", "admin@gmail.com", false, null, false, null, null, null, null, "1234567890", false, "9d0a28c1-7f04-41c7-a53b-9ecbe8444fb4", false, "Admin" });
+                values: new object[] { "1", 5, "702a9464-4359-4c11-b145-aa93be0613dd", "admin@gmail.com", false, null, false, null, null, null, null, "1234567890", false, "7627d250-ac7f-4780-a035-af1b58b15794", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Chapters",
-                columns: new[] { "Id", "Content", "DocumentId", "IsUnlock" },
+                columns: new[] { "Id", "Content", "DocumentId", "IsUnlock", "NumberChapter" },
                 values: new object[,]
                 {
-                    { "Doc1-Chap1", "Introduction to Object and Class", 1, true },
-                    { "Doc2-Chap1", "Why Clean Code", 2, true }
+                    { 1, "Introduction to Object and Class", 1, true, "Chapter 1" },
+                    { 2, "Why Clean Code", 2, true, "Chapter 1" }
                 });
 
             migrationBuilder.InsertData(

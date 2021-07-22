@@ -8,7 +8,7 @@
 <form method="post">
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @if (Model.Chapter.Id != null)
+        @if (Model.Chapter.Id != 0)
         {
             title = "Edit Chapter";
             <input type="hidden" asp-for="Chapter.Id" />
@@ -22,8 +22,17 @@
                     <label asp-for="Chapter.Content"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Chapter.Content" class="form-control" /> 
+                    <input asp-for="Chapter.Content" class="form-control" />
                     <span asp-validation-for="Chapter.Content" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Chapter.NumberChapter"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Chapter.NumberChapter" class="form-control" />
+                    <span asp-validation-for="Chapter.NumberChapter" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
@@ -46,7 +55,7 @@
             <div class="form-group row">
                 <div class="col-8 offset-4">
 
-                    @if (Model.Chapter.Id != null)
+                    @if (Model.Chapter.Id != 0)
                     {
                         <partial name="_EditAndBackToListButton" model="Model.Chapter.Id" />
                     }
