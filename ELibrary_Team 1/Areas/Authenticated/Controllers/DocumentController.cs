@@ -33,6 +33,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
         }
 
     // GET: Documents
+       
         public IActionResult Index()
         {
 
@@ -161,10 +162,11 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
         public IActionResult Details(int id)
         {
             var document = _unitOfWork.Document.FirstOrDefault(x => x.Id == id, includeProperties: "Chapters,DocumentCategories.Category,AccessRequests,UserVotes");
-            var noChapter = document.Chapters.Count(); // Count number of current chapters
+            var noChapter = document.Chapters.Count;
+            // Count number of current chapters
             //var totalChapter = document.Chapters.Select(x => x.TotalChapter).Count(); TODO: Add field "TotalChapter" that store total chapter of document
             var totalAccess = document.AccessRequests.Where(x => x.IsAccept == true).Count(); // Count total accepted request;
-            var totalVote = document.UserVotes.Count();
+            var totalVote = document.UserVotes.Count;
             var selectedCategory = new SelectList(document.DocumentCategories, "Category.Id", "Category.Title");
 
             var documentVM = new DocumentViewModel()
@@ -258,7 +260,7 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit(int id,  DocumentViewModel documentVM)
+        public  IActionResult AddOrEdit(int id,  DocumentViewModel documentVM)
         {
             if (ModelState.IsValid)
             {
@@ -270,17 +272,22 @@ namespace ELibrary_Team_1.Areas.Authenticated.Controllers
                         // UploadedFile method: Check if imange exists and copy Image file to webRoot
                         documentVM.Document.Image = UploadedFile(documentVM);
                     }
+                    _unitOfWork.Document.Add(documentVM.Document);
+                    _unitOfWork.SaveChange();
+
                     if (documentVM.CurrentCategoryList != null)
                     {
-
+                        var documentCategory = new List<DocumentCategory>();
                         foreach (var item in documentVM.CurrentCategoryList)
                         {
-                            var documentCategory = new DocumentCategory() { DocumentId = documentVM.Document.Id, CategoryId = item };
-                            documentVM.Document.DocumentCategories.Add(documentCategory);
+                            documentCategory.Add(new DocumentCategory() { DocumentId = documentVM.Document.Id, CategoryId = item });
+                            
                         }
+                        _unitOfWork.DocumentCategory.AddRange(documentCategory);
                     }
-                    _unitOfWork.Document.Add(documentVM.Document);
-                    await _unitOfWork.SaveChangeAsync(); 
+                    
+                    
+                    _unitOfWork.SaveChange(); 
                 }
 
                 else

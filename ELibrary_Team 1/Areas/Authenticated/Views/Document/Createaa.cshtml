@@ -1,0 +1,73 @@
+﻿@model ELibrary_Team_1.ViewModels.DocumentViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Document</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @*<div class="form-group">
+                    <label asp-for="Document.Id" class="control-label"></label>
+                    <input asp-for="Document.Id" class="form-control" />
+                    <span asp-validation-for="Document.Id" class="text-danger"></span>
+                </div>*@
+
+
+            <div class="form-group">
+                <label asp-for="Document.Title" class="control-label"></label>
+                <input asp-for="Document.Title" class="form-control" />
+                <span asp-validation-for="Document.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Document.Author" class="control-label"></label>
+                <input asp-for="Document.Author" class="form-control" />
+                <span asp-validation-for="Document.Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Document.Description" class="control-label"></label>
+                <input asp-for="Document.Description" class="form-control" />
+                <span asp-validation-for="Document.Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Document.IsPublic" /> @Html.DisplayNameFor(model => model.Document.IsPublic)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategorySelectList" class="control-label"></label>
+                <select id="multiple" asp-for="CategorySelectList" multiple="multiple" class="selectpicker form-control" asp-items="Model.CategorySelectList">
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" accept="image/*" />
+                <span asp-validation-for="Document.Image" class="text-danger"></span>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
