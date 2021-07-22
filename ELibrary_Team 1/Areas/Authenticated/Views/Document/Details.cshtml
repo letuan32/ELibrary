@@ -1,54 +1,78 @@
-﻿@model ELibrary_Team_1.Models.Document
+﻿@model ELibrary_Team_1.ViewModels.DocumentViewModel
 
-@{
-    ViewData["Title"] = "Details";
-}
+@{ Layout = null; }
 
 <h1>Details</h1>
 
 <div>
     <h4>Document</h4>
     <hr />
+
+    <a href="@("Images/"+Model.Document.Image)">
+        <img src="@("~/Images/"+Model.Document.Image)" asp-append-version="true" width="100" height="100" />
+    </a>
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Document.Title)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Document.Title)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Document.Author)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Document.Author)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdateDate)
+        <dt class="col-sm-3">
+            Category
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdateDate)
+        <dd class="col-sm-9">
+            @foreach (var category in Model.Document.DocumentCategories)
+            {
+                <span style="background-color:#868c96;">@category.Category.Title</span> <span>&ensp;</span>
+            }
+            @*@Html.DisplayFor(model => model.Document.TotalChapter)*@
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-3">
+            Number of Chapter
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.NoChapter)   @*@Html.DisplayFor(model => model.Document.TotalChapter)*@
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsPublic)
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Document.UpdateDate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsPublic)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Document.UpdateDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AverageRate)
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Document.Description)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AverageRate)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Document.Description)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Document.IsPublic)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Document.IsPublic)
+        </dd>
+        <dt class="col-sm-3">
+            Total Access
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.TotalAccess)
+        </dd>
+        <dt class="col-sm-3">
+            Averge Rate/Total Vote
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Document.AverageRate) / @Html.DisplayFor(model => model.TotalVote)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>

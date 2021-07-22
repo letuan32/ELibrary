@@ -29,7 +29,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             await dbSet.AddAsync(entity);
         }
 
-        public void AddRange(T entites)
+        public void AddRange(IEnumerable<T> entites)
         {
             dbSet.AddRange(entites);
         }
@@ -59,6 +59,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
 
         public T GetById(string id)
         {
+       
             return dbSet.Find(id);
         }
 
@@ -98,7 +99,9 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             return dbSet.Find(id);
             
         }
- 
+
+
+
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null)
         {
             IQueryable<T> query = dbSet;
@@ -122,5 +125,19 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             }
             return query.ToList();
         }
+
+        public T FirstOrDefault(Expression<Func<T, bool>> predicate, string includeProperties = null)
+        {
+            IQueryable<T> query = dbSet.Where(predicate);
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.FirstOrDefault();
+        }
+
     }
 }
