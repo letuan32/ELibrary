@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELibrary_Team_1.Areas.Authenticated.Controllers
+namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     [Area("Authenticated")]
     public class ChapterController : Controller
