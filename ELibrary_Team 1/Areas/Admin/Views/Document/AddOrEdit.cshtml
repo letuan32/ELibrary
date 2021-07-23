@@ -11,16 +11,16 @@
         <form enctype="multipart/form-data" asp-action="AddOrEdit" asp-route-id="@Model.Document.Id" onsubmit="return jQueryAjaxPost(this);">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Document.Id" />
-        @if (Model.Document.Id != 0)
-        {
-            <div class="form-group">
-                <label>Image</label>
-                <a href="@("Images/" + Model.Document.Image)">
-                    <img src="@("~/Images/" + Model.Document.Image)" asp-append-version="true" width="50" height="50" />
-                </a>
-                <input type="hidden" asp-for="Document.Image" />
-            </div>
-        }
+            @if (Model.Document.Id != 0)
+            {
+                <div class="form-group">
+                    <label>Image</label>
+                    <a href="@("Images/" + Model.Document.Image)">
+                        <img src="@("~/Images/" + Model.Document.Image)" asp-append-version="true" width="50" height="50" />
+                    </a>
+                    <input type="hidden" asp-for="Document.Image" />
+                </div>
+            }
 
             <div class="form-group">
                 <label asp-for="Document.Title" class="control-label"></label>
@@ -66,4 +66,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+@section Scripts{
+    <script src="~/js/document.js"></script>
+}
 
