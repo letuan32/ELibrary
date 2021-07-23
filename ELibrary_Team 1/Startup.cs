@@ -85,7 +85,7 @@ namespace ELibrary_Team_1
 
                 endpoints.MapControllerRoute(
                     name: "api",
-                    pattern: "{area=Authenticated}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=admin}/{controller=Home}/{action=Index}/{id?}");
                 
                 endpoints.MapRazorPages();
             });
