@@ -9,7 +9,7 @@ using ELibrary.Data;
 using ELibrary_Team_1.Models;
 using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
 
-namespace ELibrary_Team_1.Controllers
+namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     public class DocumentCategoriesController : Controller
     {

@@ -15,10 +15,10 @@ using Microsoft.AspNetCore.Http;
 using static ELibrary_Team1.Helper;
 using ELibrary_Team1;
 
-namespace ELibrary_Team_1.Areas.Authenticated.Controllers
+namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
-    [Area("Authenticated")]
-    [Route("Authenticated/[controller]/[action]")]
+    [Area("Admin")]
+    [Route("Admin/[controller]/[action]")]
     public class DocumentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
