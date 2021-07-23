@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
-    [Area("Authenticated")]
+    [Area("Admin")]
     public class ChapterController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

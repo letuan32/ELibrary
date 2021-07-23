@@ -19,10 +19,10 @@ function loadDataTable() {
                 "render": function (data) {
                     return `
                             <div class="text-center">
-                                <a href="/Authenticated/Chapter/Upsert/${data}" class="btn btn-success text-white">
+                                <a href="/Admin/Chapter/Upsert/${data}" class="btn btn-success text-white">
                                     <i class="fas fa-edit"></i> 
                                 </a>
-                                <a onclick=Delete("/Authenticated/Chapter/Delete/${data}") class="btn btn-danger text-white">
+                                <a onclick=Delete("/Admin/Chapter/Delete/${data}") class="btn btn-danger text-white">
                                     <i class="fas fa-trash-alt"></i> 
                                 </a>
                             </div>
