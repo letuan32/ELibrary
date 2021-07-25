@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ELibrary_Team1.DataAccess\ELibrary_Team1.DataAccess.csproj" />
     <ProjectReference Include="..\ELibrary_Team1.Models\ELibrary_Team1.Models.csproj" />
+    <ProjectReference Include="..\Elibrary_Team1_Ulitity\Elibrary_Team1.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

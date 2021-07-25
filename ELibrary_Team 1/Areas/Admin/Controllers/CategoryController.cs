@@ -6,16 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.IdentityModel;
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CategoryController (IUnitOfWork unitOfWork)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork ;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
@@ -24,7 +24,7 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
         public IActionResult Upsert(int? id)
         {
             Category category = new Category();
-            if(id == null)
+            if (id == null)
             {
                 return View(category);
             }
@@ -38,11 +38,11 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert (Category category)
+        public IActionResult Upsert(Category category)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(category.Id == 0)
+                if (category.Id == 0)
                 {
                     _unitOfWork.Category.Add(category);
                 }
@@ -80,3 +80,4 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
         #endregion
     }
 }
+

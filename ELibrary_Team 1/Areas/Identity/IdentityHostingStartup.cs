@@ -1,4 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using ELibrary_Team_1.Models;
+using ELibrary.Data;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 [assembly: HostingStartup(typeof(ELibrary_Team_1.Areas.Identity.IdentityHostingStartup))]
 namespace ELibrary_Team_1.Areas.Identity

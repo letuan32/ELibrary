@@ -1,11 +1,13 @@
 using ELibrary.Data;
 using ELibrary_Team_1.Models;
+using Elibrary_Team1.Utility;
 using ELibrary_Team1.DataAccess.Data.Initializer;
 using ELibrary_Team1.DataAccess.Data.Repository;
 using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +34,7 @@ namespace ELibrary_Team_1
                 options.UseSqlServer(Configuration.GetConnectionString("ElibraryDb")));
 
 
-
+            services.AddSingleton<IEmailSender, EmailSender>();
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ELibraryDbContext>()
