@@ -2,9 +2,15 @@
 
 
 
-<table class="table">
+<div class="col-6 text-right">
+    <a onclick="showInPopup('@Url.Action("AddOrEdit","Document",null,Context.Request.Scheme)','New Document')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Document</a>
+</div>
+<table class="table" id="tblDocument">
     <thead>
         <tr>
+            <th>
+                Image
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -20,19 +26,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.AverageRate)
             </th>
-            
             <th>
-                <a onclick="showInPopup('@Url.Action("AddOrEdit","Document",null,Context.Request.Scheme)','New Document')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Document</a>
+                
             </th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 <a href="@("Images/"+item.Image)">
                     <img src="@("~/Images/"+item.Image)" asp-append-version="true" width="50" height="50" />
                 </a>
+                
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
@@ -47,11 +56,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AverageRate)
             </td>
-          
+
             <td>
                 <div>
                     <a onclick="showInPopup('@Url.Action("AddOrEdit","Document",new {id=item.Id},Context.Request.Scheme)','Update Document')" class="btn btn-info text-white" style="cursor : pointer"><i class="fas fa-pencil-alt"></i> Edit</a>
-                    <a onclick="showInPopup('@Url.Action("Details","Document",new {id=item.Id},Context.Request.Scheme)','Detail Document')" class="btn btn-info text-white" style="cursor : pointer" ><i class="fas fa-pencil-alt"></i>Detail</a>
+                    <a onclick="showInPopup('@Url.Action("Details","Document",new {id=item.Id},Context.Request.Scheme)','Detail Document')" class="btn btn-info text-white" style="cursor : pointer"><i class="fas fa-pencil-alt"></i>Detail</a>
                     <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
                         <input type="hidden" asp-for="@item.Id" />
                         <input type="submit" value="Delete" class="btn btn-danger" />
@@ -59,6 +68,6 @@
                 </div>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

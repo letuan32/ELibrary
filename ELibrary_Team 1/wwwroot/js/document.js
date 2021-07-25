@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿
+
+$(function () {
     $("#loaderbody").addClass('hide');
 
     $(document).bind('ajaxStart', function () {
@@ -7,7 +9,13 @@
         $("#loaderbody").addClass('hide');
     });
 });
-
+$(document).ready(function () {
+    $('#tblDocument').DataTable({
+        "scrollY": "450px",
+        "scrollCollapse": true,
+        "paging": true
+    });
+});
 showInPopup = (url, title) => {
     $.ajax({
         type: 'GET',
@@ -23,6 +31,18 @@ showInPopup = (url, title) => {
         }
     })
 }
+//var dataTable;
+
+//$(document).ready(function () {
+//    loadDataTable();
+//});
+//function loadDataTable() {
+//    dataTable = $('#tblDocument').DataTable({
+//        "scrollY": "450px",
+//        "scrollCollapse": true,
+//        "paging": true
+//    });
+//}
 
 jQueryAjaxPost = form => {
     try {
@@ -38,6 +58,11 @@ jQueryAjaxPost = form => {
                     $('#form-modal .modal-body').html('');
                     $('#form-modal .modal-title').html('');
                     $('#form-modal').modal('hide');
+                    $('#tblDocument').DataTable({
+                        "scrollY": "450px",
+                        "scrollCollapse": true,
+                        "paging": true
+                    });
                 }
                 else
                     $('#form-modal .modal-body').html(res.html);
@@ -64,6 +89,11 @@ jQueryAjaxDelete = form => {
                 processData: false,
                 success: function (res) {
                     $('#view-all').html(res.html);
+                    $('#tblDocument').DataTable({
+                        "scrollY": "450px",
+                        "scrollCollapse": true,
+                        "paging": true
+                    });
                 },
                 error: function (err) {
                     console.log(err)
