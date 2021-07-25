@@ -38,7 +38,7 @@ namespace ELibrary.Data
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<AccessRequest> AccessRequests { get; set; }
-       
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<DocumentCategory> DocumentCategories { get; set; }
