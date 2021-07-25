@@ -16,19 +16,6 @@ namespace ELibrary.Data.Extensions
 
             // Identity
             PasswordHasher<AppUser> passwordHasher = new PasswordHasher<AppUser>();
-            modelBuilder.Entity<AppUser>().HasData(
-                new AppUser
-                {
-                    Id = "1",
-                    UserName = "Admin",
-                    Email = "admin@gmail.com",
-                    LockoutEnabled = false,
-                    PhoneNumber = "1234567890",
-                    AccessFailedCount = 5,
-                    TwoFactorEnabled = false,
-                    PhoneNumberConfirmed = false,
-                    EmailConfirmed = false,
-                });
 
 
             modelBuilder.Entity<Document>().HasData(
@@ -107,16 +94,7 @@ namespace ELibrary.Data.Extensions
                     CategoryId = 2
                 }
             );
-            modelBuilder.Entity<UserVote>().HasData(
-                new UserVote
-                {
-                    Id = 1,
-                    DocumentId = 1,
-                    UserId = "1",
-                    Vote = 5
-                }
-                );
-
+           
 
 
 
