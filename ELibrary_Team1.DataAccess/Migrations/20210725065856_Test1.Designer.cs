@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELibrary_Team1.DataAccess.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    [Migration("20210722061157_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210725065856_Test1")]
+    partial class Test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,22 +121,6 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 5,
-                            ConcurrencyStamp = "702a9464-4359-4c11-b145-aa93be0613dd",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7627d250-ac7f-4780-a035-af1b58b15794",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("ELibrary_Team_1.Models.Category", b =>
@@ -188,9 +172,6 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.Property<bool>("IsUnlock")
                         .HasColumnType("bit");
 
-                    b.Property<string>("NumberChapter")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DocumentId");
@@ -203,16 +184,14 @@ namespace ELibrary_Team1.DataAccess.Migrations
                             Id = 1,
                             Content = "Introduction to Object and Class",
                             DocumentId = 1,
-                            IsUnlock = true,
-                            NumberChapter = "Chapter 1"
+                            IsUnlock = true
                         },
                         new
                         {
                             Id = 2,
                             Content = "Why Clean Code",
                             DocumentId = 2,
-                            IsUnlock = true,
-                            NumberChapter = "Chapter 1"
+                            IsUnlock = true
                         });
                 });
 
@@ -349,15 +328,6 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserVotes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DocumentId = 1,
-                            UserId = "1",
-                            Vote = 5
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -438,12 +408,10 @@ namespace ELibrary_Team1.DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -480,12 +448,10 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

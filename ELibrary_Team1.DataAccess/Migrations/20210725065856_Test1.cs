@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,7 +106,6 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NumberChapter = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DocumentId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsUnlock = table.Column<bool>(type: "bit", nullable: false)
@@ -200,8 +199,8 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -245,8 +244,8 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -329,17 +328,12 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 5, "702a9464-4359-4c11-b145-aa93be0613dd", "admin@gmail.com", false, null, false, null, null, null, null, "1234567890", false, "7627d250-ac7f-4780-a035-af1b58b15794", false, "Admin" });
-
-            migrationBuilder.InsertData(
                 table: "Chapters",
-                columns: new[] { "Id", "Content", "DocumentId", "IsUnlock", "NumberChapter" },
+                columns: new[] { "Id", "Content", "DocumentId", "IsUnlock" },
                 values: new object[,]
                 {
-                    { 1, "Introduction to Object and Class", 1, true, "Chapter 1" },
-                    { 2, "Why Clean Code", 2, true, "Chapter 1" }
+                    { 1, "Introduction to Object and Class", 1, true },
+                    { 2, "Why Clean Code", 2, true }
                 });
 
             migrationBuilder.InsertData(
@@ -350,11 +344,6 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     { 1, 1 },
                     { 2, 1 }
                 });
-
-            migrationBuilder.InsertData(
-                table: "UserVotes",
-                columns: new[] { "Id", "DocumentId", "UserId", "Vote" },
-                values: new object[] { 1, 1, "1", 5 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AccessRequests_DocumentId",
