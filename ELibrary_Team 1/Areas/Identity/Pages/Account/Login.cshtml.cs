@@ -44,7 +44,7 @@ namespace ELibrary_Team_1.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            
             [Display(Name = "Username/Email")]
             public string Email { get; set; }
             [Required]
@@ -95,7 +95,8 @@ namespace ELibrary_Team_1.Areas.Identity.Pages.Account
                         result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                     }
                 }
-                result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                else
+                    result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
