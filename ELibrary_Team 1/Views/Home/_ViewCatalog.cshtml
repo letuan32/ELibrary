@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ELibrary_Team_1.Models.Document>
+@{
+}
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Welcome to GCD ELibrary</h1>>
+        <p class="lead text-muted">
+            Here you can always find the relevant information on the available domains for your region.
+            We strongly recommend creating an account in our library so the system can automatically match the available domain for you.
+        </p>
+    </div>
+</section>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="@("~/Images/"+@item.Image)" asp-append-version="true"  alt="@item.Description">
+                        <div class="card-body">
+                            <h4>@item.Title</h4> 
+                            <h6>Author: @item.Author</h6>
+                            <h6>View: @item.AccessRequests.Where(x => x.IsAccept).Count();</h6>
+                            <h6>Rate: @item.AverageRate/@item.UserVotes.Count();</h6>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button asp-action="#" asp-route-id="#" type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+       
+
+
+    </div>
+</div>
