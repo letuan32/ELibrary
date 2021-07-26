@@ -25,13 +25,13 @@ namespace ELibrary_Team_1.Controllers
         // GET: HomeController
         public ActionResult Index()
         {
-            var documents = _unitOfWork.Document.GetAll();
-            ViewBag.Categories = _unitOfWork.Category.GetAll();
-            ViewBag.Chapters = _unitOfWork.Chapter.GetAll();
-            ViewBag.TotalAccess = _unitOfWork.UserVote.GetAll().Count();
+            var documents = _unitOfWork.Document.GetAll(includeProperties: "DocumentCategories.Category,AccessRequests");
+
+            @ViewBag.UserAccess = _unitOfWork.AccessRequest.GetAll();
 
 
-            return View(documents);
+
+            return PartialView("_View", documents);
         }
 
         // GET: HomeController/Details/5

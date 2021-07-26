@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,10 +11,23 @@ namespace ELibrary_Team_1.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+
+
+        public HomeController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
+        {
+            _unitOfWork = unitOfWork;
+            this._hostEnvironment = hostEnvironment;
+        }
         // GET: HomeController
         public ActionResult Index()
         {
-            return View();
+            var documents = _unitOfWork.Document.GetAll(includeProperties: "DocumentCategories.Category,AccessRequests,UserVotes");
+
+
+            return View(documents);
         }
 
         // GET: HomeController/Details/5
