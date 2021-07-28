@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[controller]/[action]")]
     public class ChapterController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
