@@ -8,7 +8,7 @@ namespace ELibrary_Team_1.Models
     public class Chapter
     {
         public int Id { get; set; }
-        
+
         //[Required]
         //public string Number { get; set; }
         //[Required]

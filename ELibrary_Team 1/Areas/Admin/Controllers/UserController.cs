@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
+    [Route("Admin/[controller]/[action]")]
+    
     public class UserController : Controller
     {
         private readonly ELibraryDbContext _db;
@@ -17,6 +20,8 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
         {
             _db = db;
         }
+
+
         public IActionResult Index()
         {
             return View();

@@ -11,8 +11,9 @@ function loadDataTable() {
             "url": "/Admin/User/GetAll"
         },
         "columns": [
-            { "data": "fullName", "width": "30%" },
+            { "data": "userName", "width": "30%" },
             { "data": "email", "width": "40%" },
+            { "data": "fullName", "width": "30%" },
             { "data": "role", "width": "40%" },
             {
                 "data": {
