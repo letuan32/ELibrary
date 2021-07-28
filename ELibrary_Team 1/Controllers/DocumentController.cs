@@ -33,7 +33,7 @@ namespace ELibrary_Team_1.Controllers
         public ActionResult Details(string title)
         {
             var document = _unitOfWork.Document.FirstOrDefault(x => x.Title == title, includeProperties: "DocumentCategories.Category,AccessRequests,UserVotes");
-            var chapters = _unitOfWork.Chapter.GetAll(x => x.Id == document.Id).ToList();
+            var chapters = _unitOfWork.Chapter.GetAll(x => x.DocumentId == document.Id).ToList();
             ViewBag.Chapters = chapters;
             return View(document);
         }

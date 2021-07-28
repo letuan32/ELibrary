@@ -33,7 +33,7 @@
                             <span style="background-color:#868c96;">@category.Category.Title</span> <span>&ensp;</span>
                         }
                     </h6>
-                    <h6>Description: <p class="product-description"> @Model.Description</p></h6>
+                    <h6>Description: <span class="product-description">@Model.Description</span></h6>
                     <h6>View: <span> @Model.AccessRequests.Where(x => x.IsAccept == true).Count()</span></h6>
                     <h6>Rate: @Model.AverageRate<span>(@Model.UserVotes.Count() vote)</span></h6>
 
@@ -43,57 +43,78 @@
             </div>
         </div>
     </div>
+
     <div class="col-xs-12">
         <h3>Chapters List</h3>
-        <table id="tblChapterList">
-            <thead>
-                <tr>
-                    <th>
-                        Chapter
-                    </th>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var item in ViewBag.Chapters)
-                {
-                    <tr>
-                        <td>
-                            @item.Id
-                            <span>ToDo: Replace by Number</span>
-                        </td>
-                        <td>
-                            @item.DocumentId
-                            <span>ToDo: Replace by Title</span>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div id="chapterList">
+            @foreach (var item in ViewBag.Chapters)
+            {
+                <div>
+                    <a style="line-height: 1.2" class="nav-link active" href="#"><p font-size:18px>@item.Number<span>: </span>@item.Title</p></a>
+                </div>
+            }
+        </div>
+        
     </div>
+
+    @*<div class="col-xs-12">
+            <h3>Chapters List</h3>
+            <table id="tblChapterList">
+                <thead>
+                    <tr>
+                        <th>
+                            Chapter
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in ViewBag.Chapters)
+                    {
+                        <tr>
+                            <td>
+                                @item.Id
+                                <span>ToDo: Replace by Number</span>
+                            </td>
+                            <td>
+                                @item.DocumentId
+                                <span>ToDo: Replace by Title</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>*@
 </div>
 
 
-@section Scripts{
-    
-    <script >
-        $(document).ready(function () {
-            var table = $('#tblChapterList').removeAttr('width').DataTable({
-                scrollY: "300px",
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true,
-                columnDefs: [
-                    { width: 200, targets: 0 }
-                ],
-                fixedColumns: true
+    @section Scripts{
+
+        <script>
+            $(document).ready(function () {
+                var table = $('#tblChapterList').removeAttr('width').DataTable({
+                    scrollY: "300px",
+                    scrollX: true,
+                    scrollCollapse: true,
+                    paging: true,
+                    columnDefs: [
+                        { width: 200, targets: 0 }
+                    ],
+                    fixedColumns: true
+                });
             });
-        });
-    </script>
-}
+        </script>
+    }
+<style>
+    #chapterList {
+        height: 200px;
+        overflow-y: scroll;
+    }
+    
+</style>
