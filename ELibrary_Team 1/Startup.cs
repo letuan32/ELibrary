@@ -82,7 +82,7 @@ namespace ELibrary_Team_1
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{area=Unauthenticated}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 
                 endpoints.MapControllerRoute(
                     name: "Home",

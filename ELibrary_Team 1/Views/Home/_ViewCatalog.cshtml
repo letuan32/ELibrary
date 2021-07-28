@@ -28,7 +28,7 @@
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button asp-action="#" asp-route-id="#" type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                    <input type="button" value="View" onclick="location.href='@Url.Action("Details", "Document",new {title = item.Title},Context.Request.Scheme)'" />
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
                                 </div>
                                 
