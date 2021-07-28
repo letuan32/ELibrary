@@ -14,6 +14,7 @@ namespace ELibrary.Data.Configurations
             builder.ToTable("Categories");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+            builder.HasIndex(x => x.Title).IsUnique(true);
          
             //ORM
             //builder.HasMany(x => x.DocumentCategories).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId)/*.OnDelete(DeleteBehavior.SetNull)*/;

@@ -13,6 +13,7 @@ namespace ELibrary.Data.Configurations
         {
             builder.ToTable("Documents");
             builder.HasKey(x => x.Id);
+            
            
           
             

@@ -13,7 +13,11 @@ namespace ELibrary.Data.Configurations
         {
             builder.ToTable("Chapters");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired(true);
+            builder.Property(x => x.Id).IsRequired(true).ValueGeneratedOnAdd();
+
+            
+           
+
 
             //ORM
             builder.HasOne(x => x.Document).WithMany(x => x.Chapters).HasForeignKey(x => x.DocumentId).IsRequired().OnDelete(DeleteBehavior.Cascade);

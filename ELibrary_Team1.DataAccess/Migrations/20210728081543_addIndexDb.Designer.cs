@@ -4,14 +4,16 @@ using ELibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    partial class ELibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210728081543_addIndexDb")]
+    partial class addIndexDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,15 +178,21 @@ namespace ELibrary_Team1.DataAccess.Migrations
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DocumentId");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("Chapters");
 
