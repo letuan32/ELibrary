@@ -16,7 +16,7 @@
                 </div>
                 <div class="details col-md-6">
                     <h3 class="product-title">@Model.Title</h3>
-                    <p><b>Author</b>: @Model.Author</p> 
+                    <p><b>Author</b>: @Model.Author</p>
                     @*<div class="rating">
                             <div class="stars">
                                 <span class="fa fa-star checked"></span>
@@ -37,10 +37,6 @@
                     <p class="product-description"><b>Description: </b>@Model.Description</p>
                     <p><b>View: </b>@Model.AccessRequests.Where(x => x.IsAccept == true).Count()</p>
                     <p><b>Rate: </b>@Model.AverageRate<span>(@Model.UserVotes.Count() vote)</span></p>
-                   
-
-
-
                 </div>
             </div>
         </div>
@@ -52,47 +48,27 @@
             @foreach (var item in ViewBag.Chapters)
             {
                 <div>
-                    <a style="line-height: 1.2" class="nav-link active" href="#"><p font-size:18px>@item.Number<span>: </span>@item.Title</p></a>
+                    <a style="line-height: 1.2" class="btn-link"
+                       onclick="showInPopup('@Url.Action("GetChapter","Document",new {title = item.Title, number = item.Number,id=item.Id},Context.Request.Scheme)')">
+                        @item.Number<span>: </span>@item.Title
+                    </a>
                 </div>
             }
         </div>
-        
+
     </div>
+</div>
 
-    @*<div class="col-xs-12">
-            <h3>Chapters List</h3>
-            <table id="tblChapterList">
-                <thead>
-                    <tr>
-                        <th>
-                            Chapter
-                        </th>
-                        <th>
-                            Title
-                        </th>
-                        <th>
 
-                        </th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    @foreach (var item in ViewBag.Chapters)
-                    {
-                        <tr>
-                            <td>
-                                @item.Id
-                                <span>ToDo: Replace by Number</span>
-                            </td>
-                            <td>
-                                @item.DocumentId
-                                <span>ToDo: Replace by Title</span>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>*@
+<div class="modal" tabindex="-1" role="dialog" id="chapter-modal">
+    <div class="modal-dialog w-75 mw-100 h-75 mh-100 modal-dialog-scrollable"  role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
@@ -100,9 +76,26 @@
 
 
 <style>
-    #chapterList {
-        height: 200px;
-        overflow-y: scroll;
-    }
-    
+
+
+
 </style>
+  
+<script type="text/javascript">
+
+    showInPopup = (url) => {
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (res) {
+                $('#chapter-modal .modal-body').html(res);
+                $('#chapter-modal').modal('show');
+                // to make popup draggable
+                $('.chapter-dialog').draggable({
+                    handle: ".modal-header"
+                });
+            }
+        })
+    }
+
+</script> 

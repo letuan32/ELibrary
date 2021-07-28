@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Document.Description" class="control-label"></label>
-                <input asp-for="Document.Description" class="form-control" />
+                <input id="textbox" asp-for="Document.Description" class="form-control" />
                 <span asp-validation-for="Document.Description" class="text-danger"></span>
             </div>
 
@@ -66,6 +66,12 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<style>
+
+    .form-control{
+        width:300px;
+    }
+</style>
 @section Scripts{
     <script src="~/js/admin/document.js"></script>
 }
