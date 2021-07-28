@@ -1,0 +1,27 @@
+﻿@model ELibrary_Team_1.Models.Chapter
+
+@{
+    ViewData["Title"] = "Chapter";
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-xl">
+        
+                <h5 class="card-title">@Model.Document.Title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@Model.Number: @Model.Title</h6>
+                <p class="card-text">@Model.Content</p>
+                <div>
+                    <button type="button" class="btn btn-default btn-prev">Prev</button>
+                    <button type="button" class="btn btn-default btn-next">Next</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                <div>
+
+                </div>
+            
+        
+    </div>
+</div>
+
+

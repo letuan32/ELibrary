@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static ELibrary_Team1.Helper;
 
 namespace ELibrary_Team_1.Controllers
 {
@@ -45,7 +46,7 @@ namespace ELibrary_Team_1.Controllers
         {
             var chapter = _unitOfWork.Chapter.FirstOrDefault(x => x.Id == id, includeProperties: "Document");
 
-            return View(chapter);
+            return View("ChapterModalPopUp",chapter);
         }
 
     }

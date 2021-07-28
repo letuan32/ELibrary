@@ -18,7 +18,7 @@ using ELibrary_Team1;
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/[controller]/[action]")]
+    [Route("Admin/[controller]/[action]/{id?}")]
     public class DocumentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
