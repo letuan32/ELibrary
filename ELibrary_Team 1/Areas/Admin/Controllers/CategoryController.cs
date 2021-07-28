@@ -10,6 +10,7 @@ using Microsoft.IdentityModel;
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[controller]/[action]")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

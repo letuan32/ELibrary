@@ -123,7 +123,7 @@ namespace ELibrary_Team1.DataAccess.Data.Repository
             {
                 return orderBy(query).ToList();
             }
-            return query.ToList();
+                return query.ToList();
         }
 
         public T FirstOrDefault(Expression<Func<T, bool>> predicate, string includeProperties = null)
