@@ -46,6 +46,8 @@ namespace ELibrary.Data.Extensions
                 {
                     Id = 1,
                     DocumentId = 1,
+                    Number = "Chapter 1",
+                    Title = "Introduction",
                     Content = "Introduction to Object and Class",
                     IsUnlock = true,
 
@@ -54,6 +56,8 @@ namespace ELibrary.Data.Extensions
                 {
                     Id = 2,
                     DocumentId = 2,
+                    Number = "Chapter 1",
+                    Title = "Table of Content",
                     Content = "Why Clean Code",
                     IsUnlock = true,
 

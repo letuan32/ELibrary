@@ -12,8 +12,10 @@ function loadDataTable() {
         },
         "columns": [
             { "data": "document.title", "width": "20%" },
-            { "data": "content", "width": "65%" },
-            { "data": "isUnlock", "width": "10%" },
+            { "data": "number", "width": "5%" },
+            { "data": "title", "width": "20%" },
+            { "data": "content", "width": "50%" },
+            { "data": "isUnlock", "width": "5%" },
             {
                 "data": "id",
                 "render": function (data) {
