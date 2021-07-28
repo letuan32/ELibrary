@@ -25,26 +25,22 @@ namespace ELibrary_Team_1.Controllers
         // GET: HomeController
         public ActionResult Index()
         {
-            var documents = _unitOfWork.Document.GetAll(includeProperties: "DocumentCategories.Category,AccessRequests");
-
-            @ViewBag.UserAccess = _unitOfWork.AccessRequest.GetAll();
-
-
-
-            return PartialView("_View", documents);
+            return View();
         }
 
         // GET: HomeController/Details/5
-        public ActionResult Details(int id)
+        [Route("/{title}")]      
+        public ActionResult Details(string title)
         {
-            return View();
+            var document = _unitOfWork.Document.FirstOrDefault(x => x.Title == title, includeProperties: "DocumentCategories.Category,AccessRequests,UserVotes");
+            var chapters = _unitOfWork.Chapter.GetAll(x => x.Id == document.Id).ToList();
+            ViewBag.Chapters = chapters;
+            return View(document);
         }
 
         // GET: HomeController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+
+        
 
         // POST: HomeController/Create
         [HttpPost]
