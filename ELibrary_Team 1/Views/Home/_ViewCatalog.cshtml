@@ -28,7 +28,7 @@
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <input type="button" value="View" onclick="location.href='@Url.Action("Details", "Document",new {title = item.Title},Context.Request.Scheme)'" />
+                                    <input type="button" value="View" onclick="location.href='@Url.Action("Details", "Document",new { title = item.Title@*.Replace(" ", "-")*@ },Context.Request.Scheme)'" />
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
                                 </div>
                                 
