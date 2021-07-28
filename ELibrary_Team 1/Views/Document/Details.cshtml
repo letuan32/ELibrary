@@ -16,7 +16,7 @@
                 </div>
                 <div class="details col-md-6">
                     <h3 class="product-title">@Model.Title</h3>
-                    <h6>Author: <span>@Model.Author</span> </h6>
+                    <p><b>Author</b>: @Model.Author</p> 
                     @*<div class="rating">
                             <div class="stars">
                                 <span class="fa fa-star checked"></span>
@@ -27,15 +27,17 @@
                             </div>
                             <span class="review-no">@Model.UserVotes.Where(x => x.Id == Model.Id).Count()</span>
                         </div>*@
-                    <h6>
+                    <p>
+                        <b>Category: </b>
                         @foreach (var category in Model.DocumentCategories)
                         {
                             <span style="background-color:#868c96;">@category.Category.Title</span> <span>&ensp;</span>
                         }
-                    </h6>
-                    <h6>Description: <span class="product-description">@Model.Description</span></h6>
-                    <h6>View: <span> @Model.AccessRequests.Where(x => x.IsAccept == true).Count()</span></h6>
-                    <h6>Rate: @Model.AverageRate<span>(@Model.UserVotes.Count() vote)</span></h6>
+                    </p>
+                    <p class="product-description"><b>Description: </b>@Model.Description</p>
+                    <p><b>View: </b>@Model.AccessRequests.Where(x => x.IsAccept == true).Count()</p>
+                    <p><b>Rate: </b>@Model.AverageRate<span>(@Model.UserVotes.Count() vote)</span></p>
+                   
 
 
 
@@ -94,23 +96,9 @@
 </div>
 
 
-    @section Scripts{
 
-        <script>
-            $(document).ready(function () {
-                var table = $('#tblChapterList').removeAttr('width').DataTable({
-                    scrollY: "300px",
-                    scrollX: true,
-                    scrollCollapse: true,
-                    paging: true,
-                    columnDefs: [
-                        { width: 200, targets: 0 }
-                    ],
-                    fixedColumns: true
-                });
-            });
-        </script>
-    }
+
+
 <style>
     #chapterList {
         height: 200px;
