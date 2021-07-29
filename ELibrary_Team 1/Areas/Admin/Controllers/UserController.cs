@@ -26,9 +26,6 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
-
-        public IActionResult Index()
         
         public async Task<IActionResult> Index()
         {
