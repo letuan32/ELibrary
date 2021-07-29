@@ -83,17 +83,16 @@ namespace ELibrary_Team_1
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                
-                endpoints.MapControllerRoute(
-                    name: "Home",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                   name: "default",
+                   pattern: "{area=Unauthenticated}/{controller=Home}/{action=Index}/{id?}");
+
 
                 endpoints.MapControllerRoute(
                     name: "api",
                     pattern: "{area=admin}/{controller=Home}/{action=Index}/{id?}");
-                
+
+
+
                 endpoints.MapRazorPages();
             });
         }

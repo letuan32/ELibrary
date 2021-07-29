@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ELibrary_Team1.DataAccess.Migrations
 {
-    public partial class newmi : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,10 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UsernameChangeLimit = table.Column<int>(type: "int", nullable: false),
+                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -39,7 +42,7 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Title = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -222,6 +225,8 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DocumentId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsUnlock = table.Column<bool>(type: "bit", nullable: false)
@@ -354,11 +359,11 @@ namespace ELibrary_Team1.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Chapters",
-                columns: new[] { "Id", "Content", "DocumentId", "IsUnlock" },
+                columns: new[] { "Id", "Content", "DocumentId", "IsUnlock", "Number", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Introduction to Object and Class", 1, true },
-                    { 2, "Why Clean Code", 2, true }
+                    { 1, "Introduction to Object and Class", 1, true, "Chapter 1", "Introduction" },
+                    { 2, "Why Clean Code", 2, true, "Chapter 1", "Table of Content" }
                 });
 
             migrationBuilder.InsertData(
@@ -391,6 +396,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_Title",
+                table: "Categories",
+                column: "Title",
+                unique: true,
+                filter: "[Title] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Chapters_DocumentId",

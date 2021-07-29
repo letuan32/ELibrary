@@ -10,6 +10,7 @@ using static ELibrary_Team1.Helper;
 
 namespace ELibrary_Team_1.Controllers
 {
+    [Area("Unauthenticated")]
     public class DocumentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -41,7 +42,7 @@ namespace ELibrary_Team_1.Controllers
 
         // GET: HomeController/Create
 
-        [Route("/{title}/{number}/{id}")]
+        
         public ActionResult GetChapter(string title, string number, int id)
         {
             var chapter = _unitOfWork.Chapter.FirstOrDefault(x => x.Id == id, includeProperties: "Document");

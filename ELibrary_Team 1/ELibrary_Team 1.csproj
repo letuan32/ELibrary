@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\Document\" />
+    <Folder Include="Views\Home\" />
     <Folder Include="wwwroot\css\Admin\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>

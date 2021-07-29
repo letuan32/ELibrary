@@ -1,39 +1,103 @@
-﻿using ELibrary_Team_1.Models;
+﻿using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELibrary_Team_1.Areas.Unauthenticated.Controllers
+namespace ELibrary_Team_1.Controllers
 {
     [Area("Unauthenticated")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public HomeController(ILogger<HomeController> logger)
+
+
+        public HomeController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
         {
-            _logger = logger;
+            _unitOfWork = unitOfWork;
+            this._hostEnvironment = hostEnvironment;
+        }
+        // GET: HomeController
+        public ActionResult Index()
+        {
+            var documents = _unitOfWork.Document.GetAll(includeProperties: "DocumentCategories.Category,AccessRequests,UserVotes");
+
+
+            return View(documents);
         }
 
-        public IActionResult Index()
+        // GET: HomeController/Details/5
+        public ActionResult Details(int id)
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        // GET: HomeController/Create
+        public ActionResult Create()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        // POST: HomeController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: HomeController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: HomeController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: HomeController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: HomeController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

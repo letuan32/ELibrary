@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELibrary_Team1.DataAccess.Migrations
 {
     [DbContext(typeof(ELibraryDbContext))]
-    [Migration("20210728083159_newmi")]
-    partial class newmi
+    [Migration("20210729185333_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,7 +74,10 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -100,6 +103,9 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -109,6 +115,9 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("UsernameChangeLimit")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -132,9 +141,13 @@ namespace ELibrary_Team1.DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique()
+                        .HasFilter("[Title] IS NOT NULL");
 
                     b.ToTable("Categories");
 
@@ -172,6 +185,14 @@ namespace ELibrary_Team1.DataAccess.Migrations
                     b.Property<bool>("IsUnlock")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DocumentId");
@@ -184,14 +205,18 @@ namespace ELibrary_Team1.DataAccess.Migrations
                             Id = 1,
                             Content = "Introduction to Object and Class",
                             DocumentId = 1,
-                            IsUnlock = true
+                            IsUnlock = true,
+                            Number = "Chapter 1",
+                            Title = "Introduction"
                         },
                         new
                         {
                             Id = 2,
                             Content = "Why Clean Code",
                             DocumentId = 2,
-                            IsUnlock = true
+                            IsUnlock = true,
+                            Number = "Chapter 1",
+                            Title = "Table of Content"
                         });
                 });
 
