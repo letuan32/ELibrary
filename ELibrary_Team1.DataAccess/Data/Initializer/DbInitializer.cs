@@ -89,22 +89,7 @@ namespace ELibrary_Team1.DataAccess.Data.Initializer
                 }
             }
 
-            if (_userManager.FindByEmailAsync("letuanlttt@gmail.com").Result == null)
-            {
-                var user = new AppUser()
-                {
-                    Email = "letuanlttt@gmail.com",
-                    FirstName = "Le",
-                    LastName = "Tuan",
-                    EmailConfirmed = true,
-                    UserName = "letuan32",
-                };
-                IdentityResult result = _userManager.CreateAsync(user, "Admin@123").GetAwaiter().GetResult();
-                if (result.Succeeded)
-                {
-                    _userManager.AddToRoleAsync(user, "Admin").GetAwaiter().GetResult();
-                }
-            }
+           
 
             if (_userManager.FindByEmailAsync("user@gmail.com").Result == null)
             {
