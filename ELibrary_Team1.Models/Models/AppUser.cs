@@ -10,13 +10,10 @@ namespace ELibrary_Team_1.Models
     {
         [NotMapped]
         public string Role;
-
-        //
-
-        public string FullName { get; set; }
-
-
-       
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int UsernameChangeLimit { get; set; } = 10;
+        public byte[] ProfilePicture { get; set; }
 
         public ICollection<UpdateRequest> UpdateRequests { get; set; }
         public ICollection<AccessRequest> AccessRequests { get; set; }

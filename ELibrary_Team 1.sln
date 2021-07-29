@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELibrary_Team1.DataAccess",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELibrary_Team1.Models", "ELibrary_Team1.Models\ELibrary_Team1.Models.csproj", "{B8DB3ACB-C5D6-48A5-9F04-3FD65FD64DE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elibrary_Team1.Utility", "Elibrary_Team1_Ulitity\Elibrary_Team1.Utility.csproj", "{B1B39062-F7E5-4AF8-8F7D-5E86A5044462}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elibrary_Team1.Utility", "Elibrary_Team1_Ulitity\Elibrary_Team1.Utility.csproj", "{B1B39062-F7E5-4AF8-8F7D-5E86A5044462}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
