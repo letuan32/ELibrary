@@ -7,61 +7,100 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using ELibrary_Team_1.ViewModels;
+using System.Web.WebPages.Html;
+
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/[controller]/[action]/{id?}")]
     public class UserController : Controller
     {
-        private readonly ELibraryDbContext _db;
-        public UserController(ELibraryDbContext db)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUnitOfWork _unitOfWork;
+        public UserController(IUnitOfWork unitOfWork, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
 
         public IActionResult Index()
+        
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-
-        #region API CALLS
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var userList = _db.AppUsers.ToList();
-            var userRole = _db.UserRoles.ToList();
-            var role = _db.Roles.ToList();
-            foreach ( var user in userList)
+            var users = await _userManager.Users.ToListAsync();
+            var userRolesViewModel = new List<UserViewModel>();
+            foreach (AppUser user in users)
             {
-                var roleId = userRole.FirstOrDefault(u => u.UserId == user.Id).RoleId;
-                user.Role = role.FirstOrDefault(u => u.Id == roleId).Name;
+                var thisViewModel = new UserViewModel();
+                thisViewModel.UserId = user.Id;
+                thisViewModel.Email = user.Email;
+                thisViewModel.FirstName = user.FirstName;
+                thisViewModel.Roles = await GetUserRoles(user);
+                userRolesViewModel.Add(thisViewModel);
             }
-            return Json(new { data = userList });
+            return View(userRolesViewModel);
         }
-
+        private async Task<List<string>> GetUserRoles(AppUser user)
+        {
+            return new List<string>(await _userManager.GetRolesAsync(user));
+        }
+        public async Task<IActionResult> Upsert(string userId)
+        {
+            ViewBag.userId = userId;
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                return View("NotFound");
+            }
+            ViewBag.UserName = user.UserName;
+            var model = new List<ManageUserRolesViewModelcs>();
+            foreach (var role in _roleManager.Roles)
+            {
+                var userRolesViewModel = new ManageUserRolesViewModelcs
+                {
+                    RoleId = role.Id,
+                    RoleName = role.Name
+                };
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    userRolesViewModel.Selected = true;
+                }
+                else
+                {
+                    userRolesViewModel.Selected = false;
+                }
+                model.Add(userRolesViewModel);
+            }
+            return View(model);
+        }
         [HttpPost]
-        public IActionResult LockUnlock([FromBody] string id)
+        public async Task<IActionResult> Upsert(List<ManageUserRolesViewModelcs> model, string userId)
         {
-            var objFromDb = _db.AppUsers.FirstOrDefault(u => u.Id == id);
-            if (objFromDb == null)
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
             {
-                return Json(new { success = false, message = "Error while Locking/Unlocking" });
+                return View();
             }
-            if (objFromDb.LockoutEnd != null && objFromDb.LockoutEnd > DateTime.Now)
+            var roles = await _userManager.GetRolesAsync(user);
+            var result = await _userManager.RemoveFromRolesAsync(user, roles);
+            if (!result.Succeeded)
             {
-                //user is currently locked, we will unlock them
-                objFromDb.LockoutEnd = DateTime.Now;
+                ModelState.AddModelError("", "Cannot remove user existing roles");
+                return View(model);
             }
-            else
+            result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
+            if (!result.Succeeded)
             {
-                objFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
+                ModelState.AddModelError("", "Cannot add selected roles to user");
+                return View(model);
             }
-            _db.SaveChanges();
-            return Json(new { success = true, message = "Operation Successful." });
+            return RedirectToAction("Index");
         }
-
-        #endregion
     }
 }

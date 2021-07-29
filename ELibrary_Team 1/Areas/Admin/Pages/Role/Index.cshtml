@@ -1,0 +1,39 @@
+﻿@page "/admin/role/"
+@model IndexModel
+<h1>List Of Role</h1>
+    <partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+    <form method="POST" class="my-1 d-inline">
+        <button class="btn btn-primary" asp-page="./Add"
+                asp-page-handler="StartNewRole">
+            Add Role
+        </button>
+    </form>
+    <a class="btn btn-primary" asp-controller="User">Add role for Identity User</a>
+
+    <table class="table">
+        <tr>
+            <th>Role Name</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var role in @Model.roles)
+        {
+            <tr>
+                <td>@role.Name</td>
+                <td>
+                    <form method="POST" class="d-inline">
+                        <button name="Input.ID" value="@role.Id" class="btn btn-primary"
+                                asp-page="./Add" asp-page-handler="StartUpdate">
+                            Update Role
+                        </button>
+                    </form>
+                    <form method="POST" class="d-inline">
+                        <button name="Input.ID" value="@role.Id" class="btn btn-primary"
+                                asp-page="./Delete">
+                            Delete Role
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>

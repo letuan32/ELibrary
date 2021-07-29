@@ -29,6 +29,7 @@ function loadDataTable() {
                                 <a onclick=LockUnlock('${data.id}') class="btn btn-danger text-white" style="cursor:pointer; width:100px;">
                                     <i class="fas fa-lock-open"></i>  Unlock
                                 </a>
+                                </a>
                             </div>
                            `;
                     }
