@@ -35,7 +35,9 @@ namespace ELibrary_Team_1
 
 
             services.AddSingleton<IEmailSender, EmailSender>();
-
+            services.ConfigureApplicationCookie(options => {
+            options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ELibraryDbContext>()
                 .AddDefaultUI()
