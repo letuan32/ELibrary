@@ -59,7 +59,8 @@ namespace ELibrary_Team1.DataAccess.Data.Initializer
                 var user = new AppUser()
                 {
                     Email = "admin@gmail.com",
-                    FullName = "Admin",
+                    FirstName = "Le",
+                    LastName = "Tuan",
                     EmailConfirmed = true,
                     UserName = "admin",
                     
@@ -76,7 +77,8 @@ namespace ELibrary_Team1.DataAccess.Data.Initializer
                 var user = new AppUser()
                 {
                     Email = "letuanlttt@gmail.com",
-                    FullName = "Le Tuan",
+                    FirstName = "Le",
+                    LastName = "Tuan",
                     EmailConfirmed = true,
                     UserName = "letuan32",
                 };
@@ -92,7 +94,8 @@ namespace ELibrary_Team1.DataAccess.Data.Initializer
                 var user = new AppUser()
                 {
                     Email = "letuanlttt@gmail.com",
-                    FullName = "Le Tuan",
+                    FirstName = "Le",
+                    LastName = "Tuan",
                     EmailConfirmed = true,
                     UserName = "letuan32",
                 };
@@ -108,7 +111,8 @@ namespace ELibrary_Team1.DataAccess.Data.Initializer
                 var user = new AppUser()
                 {
                     Email = "user@gmail.com",
-                    FullName = "Wibu Wibu",
+                    FirstName = "Le",
+                    LastName = "Tuan",
                     EmailConfirmed = true,
                     UserName = "user",
                 };
