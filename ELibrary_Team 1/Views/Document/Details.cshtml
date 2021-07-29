@@ -17,16 +17,6 @@
                 <div class="details col-md-6">
                     <h3 class="product-title">@Model.Title</h3>
                     <p><b>Author</b>: @Model.Author</p>
-                    @*<div class="rating">
-                            <div class="stars">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            <span class="review-no">@Model.UserVotes.Where(x => x.Id == Model.Id).Count()</span>
-                        </div>*@
                     <p>
                         <b>Category: </b>
                         @foreach (var category in Model.DocumentCategories)
@@ -37,24 +27,25 @@
                     <p class="product-description"><b>Description: </b>@Model.Description</p>
                     <p><b>View: </b>@Model.AccessRequests.Where(x => x.IsAccept == true).Count()</p>
                     <p><b>Rate: </b>@Model.AverageRate<span>(@Model.UserVotes.Count() vote)</span></p>
+                    <h3>Chapters List</h3>
+                    <div id="chapterList">
+                        @foreach (var item in ViewBag.Chapters)
+                        {
+                            <div>
+                                <a style="line-height: 1.2" class="btn-link"
+                                   onclick="showInPopup('@Url.Action("GetChapter","Document",new {title = item.Title, number = item.Number,id=item.Id},Context.Request.Scheme)')">
+                                    @item.Number<span>: </span>@item.Title
+                                </a>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-xs-12">
-        <h3>Chapters List</h3>
-        <div id="chapterList">
-            @foreach (var item in ViewBag.Chapters)
-            {
-                <div>
-                    <a style="line-height: 1.2" class="btn-link"
-                       onclick="showInPopup('@Url.Action("GetChapter","Document",new {title = item.Title, number = item.Number,id=item.Id},Context.Request.Scheme)')">
-                        @item.Number<span>: </span>@item.Title
-                    </a>
-                </div>
-            }
-        </div>
+        
 
     </div>
 </div>
@@ -76,6 +67,10 @@
 
 
 <style>
+    #chapterList {
+        height: 200px;
+        overflow: scroll;
+    }
 
 
 
