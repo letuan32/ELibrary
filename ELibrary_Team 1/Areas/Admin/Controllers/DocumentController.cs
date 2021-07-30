@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
     [Route("Admin/[controller]/[action]/{id?}")]
     public class DocumentController : Controller

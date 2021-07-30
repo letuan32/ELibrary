@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel;
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
     [Route("Admin/[controller]/[action]/{id?}")]
     public class CategoryController : Controller

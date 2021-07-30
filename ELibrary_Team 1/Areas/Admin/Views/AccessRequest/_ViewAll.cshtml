@@ -1,0 +1,137 @@
+﻿@model IEnumerable<ELibrary_Team_1.Models.AccessRequest>
+
+
+
+<table id="tblData">
+    <thead>
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+                Document
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AppUser.UserName</td>
+                <td>@item.Document.Title</td>
+                <td>
+                    @if(item.IsAccept==true)
+                        { <strong style="color:green;">Accepted</strong>}
+                    else
+                    {
+                        <strong style="color:red">Rejected</strong>
+                    }
+                </td>
+                <td>
+                   
+                    <div class="text-center">
+                        @if (item.IsAccept == true)
+                        {
+
+                            <a onclick=ChangeStatus(@item.Id) class="btn btn-danger text-white" style="cursor:pointer; width:200px;">
+                                Click to Reject
+                            </a>
+                            <a onclick=Delete("/Admin/AccessRequest/Delete/@item.Id") class="btn btn-danger text-white" style="cursor:pointer;width:100px;">
+                                <i class="fa-trash-alt"></i> Delete
+                            </a>
+                        }
+                        else
+                        {
+                            <a onclick=ChangeStatus(@item.Id) class="btn btn-success text-white" style="cursor:pointer; width:200px;">
+                                Click to Accept 
+                            </a>
+                            <a onclick=Delete("/Admin/AccessRequest/Delete/@item.Id") class="btn btn-danger text-white" style="cursor:pointer;width:100px;">
+                                <i class="fa-trash-alt"></i> Delete
+                            </a>
+                        }
+                    </div>
+                </td>
+                
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*<script type="text/javascript">
+
+
+    //var datatable;
+
+    //$(document).ready(function () {
+    //    loaddatatable();
+    //});
+    //function loaddatatable() {
+    //    datatable = $('#tbldata').datatable({
+    //            "scrolly": "450px",
+    //            "scrollcollapse": true,
+    //            "paging": true
+    //        });
+    
+    //}
+    $(document).ready(function () {
+        $('#tblDocument').DataTable({
+            "scrollY": "450px",
+            "scrollCollapse": true,
+            "paging": true
+        });
+    });
+    
+    function ChangeStatus(id) {
+
+        $.ajax({
+            type: "POST",
+            url: '/Admin/AccessRequest/ChangeStatus',
+            data: JSON.stringify(id),
+            contentType: "application/json",
+            success: function (data) {
+                if (data.success) {
+                    toastr.success(data.message);
+                    dataTable.ajax.reload();
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+
+    }
+    function Delete(url) {
+        swal({
+            title: "Are you sure you want to Delete?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: url,
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(data.message);
+                            dataTable.ajax.reload();
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+</script>*@
+
+
