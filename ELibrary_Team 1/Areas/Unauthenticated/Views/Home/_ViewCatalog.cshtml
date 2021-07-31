@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ELibrary_Team_1.Models.Document>
+﻿@model ELibrary_Team_1.ViewModels.PagingReuslt<ELibrary_Team_1.Models.Document>
 @{
 }
 
@@ -14,14 +14,52 @@
 
 <div class="album py-5 bg-light">
     <div class="container">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Search" class="btn btn-default" /> |
+                    <a asp-action="Index">Back to Full List</a>
+                </p>
+            </div>
+        </form>
+        <div>
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Title</a>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Author</a>
+                        @*<a asp-action="Index" asp-route-sortOrder="@ViewData["CategorySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Category</a>*@
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Enrollment Date</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @foreach (var category in Model)
+                        {
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Title</a>
+                            
+                        }
+
+                    </div>
+                </li>
+
+            </ul>
+        </div>
         <div class="row">
             @foreach (var item in Model)
             {
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="@("~/Images/"+@item.Image)" asp-append-version="true"  alt="@item.Description">
+                        <img class="card-img-top" src="@("~/Images/"+@item.Image)" asp-append-version="true" alt="@item.Description">
                         <div class="card-body">
-                            <h4>@item.Title</h4> 
+                            <h4>@item.Title</h4>
                             <h6>Author: @item.Author</h6>
                             <h6>View: @item.AccessRequests.Where(x => x.IsAccept).Count();</h6>
                             <h6>Rate: @item.AverageRate/@item.UserVotes.Count();</h6>
@@ -31,14 +69,33 @@
                                     <input type="button" value="View" onclick="location.href='@Url.Action("Details", "Document",new { title = item.Title@*.Replace(" ", "-")*@ },Context.Request.Scheme)'" />
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
             }
-            </div>
-       
+        </div>
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+
 
 
     </div>
