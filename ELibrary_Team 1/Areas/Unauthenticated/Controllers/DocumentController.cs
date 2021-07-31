@@ -42,6 +42,7 @@ namespace ELibrary_Team_1.Controllers
 
         // GET: HomeController/Details/5
         [AllowAnonymous]
+        
         [Route("/{title}")]      
         public ActionResult Details(string title)
         {
@@ -106,7 +107,7 @@ namespace ELibrary_Team_1.Controllers
 
 
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult SendAccessRequest(int documentId)
         {
