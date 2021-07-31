@@ -6,6 +6,7 @@ using ELibrary_Team1.DataAccess.Data.Repository;
 using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace ELibrary_Team_1
             services.AddControllersWithViews();
             ///
             services.AddDbContext<ELibraryDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ElibraryDb")));
+                options.UseSqlServer(Configuration.GetConnectionString("ElibraryDeploy")));
 
 
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -71,6 +72,14 @@ namespace ELibrary_Team_1
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // Deployment
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+            // End deploy
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
