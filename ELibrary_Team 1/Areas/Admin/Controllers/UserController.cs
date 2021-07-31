@@ -10,11 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ELibrary_Team_1.ViewModels;
 using System.Web.WebPages.Html;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

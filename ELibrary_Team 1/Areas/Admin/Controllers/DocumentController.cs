@@ -15,12 +15,13 @@ using Microsoft.AspNetCore.Http;
 using static ELibrary_Team1.Helper;
 using ELibrary_Team1;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    [Route("Admin/[controller]/[action]/{id?}")]
+    [Authorize(Roles = "Admin, Staff")]
     public class DocumentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

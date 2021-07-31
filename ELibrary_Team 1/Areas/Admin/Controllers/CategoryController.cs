@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    [Route("Admin/[controller]/[action]/{id?}")]
+    [Authorize(Roles = "Admin, Staff")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
