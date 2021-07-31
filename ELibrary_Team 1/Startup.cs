@@ -76,8 +76,9 @@ namespace ELibrary_Team_1
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+            
             dbInitializer.Initialize();
 
             app.UseEndpoints(endpoints =>

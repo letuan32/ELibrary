@@ -1,4 +1,5 @@
 ﻿using ELibrary_Team1.DataAccess.Data.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
 {
     
     [Area("Admin")]
-    [Route("Admin/[controller]/[action]/{id?}")]
+    [Authorize(Roles = "Admin, Staff")]
     public class AccessRequestController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
