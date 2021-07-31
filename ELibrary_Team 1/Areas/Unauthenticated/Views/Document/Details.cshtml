@@ -1,12 +1,8 @@
 ﻿@model ELibrary_Team_1.Models.Document
-@using Microsoft.AspNetCore.Identity
-@using ELibrary_Team_1.Models
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
 }
 <div class="container">
     <div class="card">
@@ -30,41 +26,32 @@
                     </p>
                     <p class="product-description"><b>Description: </b>@Model.Description</p>
                     <p><b>View: </b>@Model.AccessRequests.Where(x => x.IsAccept == true).Count()</p>
-                    <p><b>Rate: </b>@Model.AverageRate<span>(@Model.UserVotes.Count() vote)</span></p>
+                    <p><b>Rate: </b>@Model.AverageRate<span>(@Model.UserVotes.Count() vote)</span></p>                    
                     <div>
                         <div>
                             <h4 id="listHeading">Chapters List</h4>
-                            @if (!SignInManager.IsSignedIn(User))
+
+                            @if (ViewBag.RequestStatus == null)
                             {
-                                <a class="btn btn-success text-white" id="login" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Context.Request.Path" style="cursor:pointer; width:300px;">
-                                    Login to send request
+                                <a onclick=LockUnlock(@Model.Id) class="btn btn-success text-white" style="cursor:pointer; width:300px;">
+                                    <i class="fas fa-lock"></i>  Send request to read full
                                 </a>
                             }
                             else
                             {
-                                if (ViewBag.RequestStatus == null)
+                                if (ViewBag.RequestStatus == false)
                                 {
-                                    <a onclick=LockUnlock(@Model.Id) class="btn btn-success text-white" style="cursor:pointer; width:300px;">
-                                        <i class="fas fa-lock"></i>  Send request to read full
+                                    <a class="btnButton btn btn-info text-white">
+                                        Wait for allowed
                                     </a>
                                 }
                                 else
                                 {
-                                    if (ViewBag.RequestStatus == false)
-                                    {
-                                        <a class="btnButton btn btn-info text-white">
-                                            Wait for allowed
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a class="btnButton btn btn-info text-white">
-                                            You are accessed full document
-                                        </a>
-                                    }
+                                    <a class="btnButton btn btn-info text-white">
+                                        You are accessed full document
+                                    </a>
                                 }
                             }
-
 
                         </div>
                         <div id="chapterList">
@@ -72,7 +59,7 @@
                             {
                                 <div>
                                     <a style="line-height: 1.2" class="btn-link"
-                                       onclick="showInPopup('@Url.Action(" GetChapter","Document",new {title=item.Title, number=item.Number,id =item.Id},Context.Request.Scheme)')">
+                                       onclick="showInPopup('@Url.Action("GetChapter","Document",new {title=item.Title, number=item.Number,id =item.Id},Context.Request.Scheme)')">
                                         @item.Number<span>: </span>@item.Title
                                     </a>
                                 </div>
@@ -83,14 +70,14 @@
             </div>
         </div>
     </div>
-
+    
 
 </div>
 
 
 
 <div class="modal" tabindex="-1" role="dialog" id="chapter-modal">
-    <div class="modal-dialog w-75 mw-100 h-75 mh-100 modal-dialog-scrollable" role="document">
+    <div class="modal-dialog w-75 mw-100 h-75 mh-100 modal-dialog-scrollable"  role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>@Model.Title</h3>
@@ -111,20 +98,21 @@
         height: 200px;
         overflow: scroll;
     }
-
-        #chapterList .btn-link:hover {
-            color: blue;
-        }
-
-    #btnRequest {
-        display: inline-block;
+    #chapterList .btn-link:hover{
+        color: blue;
     }
 
-    #listHeading {
+    #btnRequest{
+        display: inline-block;
+        
+            
+    }
+
+    #listHeading{
         display: inline-block
     }
 </style>
-
+  
 <script type="text/javascript">
 
     showInPopup = (url) => {
@@ -145,7 +133,7 @@
 
 
 function LockUnlock(id) {
-
+  
     $.ajax({
 
         type: "POST",
@@ -161,7 +149,7 @@ function LockUnlock(id) {
                 toastr.error(data.message);
         }
     });
-
+    
 
 }
 </script> 
