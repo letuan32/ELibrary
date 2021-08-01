@@ -14,7 +14,7 @@ function ChangeStatus(id) {
 
     $.ajax({
         type: "POST",
-        url: '/Admin/AccessRequest/ChangeStatus',
+        url: '/Admin/AccessRequest/ChangeStatus/',
         data: JSON.stringify(id),
         contentType: "application/json",
         success: function (data) {
