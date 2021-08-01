@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>ELibrary_Team_1</RootNamespace>
+    <RootNamespace>ELibrary</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
