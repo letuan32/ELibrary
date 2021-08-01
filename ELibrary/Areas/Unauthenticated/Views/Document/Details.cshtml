@@ -67,24 +67,25 @@
 
                         </div>
                         <div id="chapterList">
-                       @if (ViewBag.Chapters.Count == 0)
-                       {
-                                <div>
-                                    <h6>Updating...</h6>
-                                </div>
-                       }
-                       else
-                       {
-                       @foreach (var item in ViewBag.Chapters)
-                       {
-                                <div>
+                            @if (ViewBag.Chapters.Count == 0)
+                            {
+                                <h6>Updating</h6>
+                            }
+                            else
+                            {
+
+
+                           @foreach (var item in ViewBag.Chapters)
+                           {
+
                                     <a style="line-height: 1.2" class="btn-link"
-                                       onclick="showInPopup('@Url.Action(" GetChapter", "Document", new { title = item.Title, number = item.Number, id = item.Id }, Context.Request.Scheme)')">
+                                       onclick="showInPopup('@Url.Action("GetChapter","Document", new { title = item.Title, number = item.Number, id = item.Id }, Context.Request.Scheme)')">
                                         @item.Number<span>: </span>@item.Title
                                     </a>
-                                </div>
+
                        }
-                       }
+                            }
+
                         </div>
                     </div>
                 </div>
