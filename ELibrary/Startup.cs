@@ -78,10 +78,10 @@ namespace ELibrary_Team_1
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-
-            // End deploy
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
+            // End deploy
+
 
             app.UseRouting();
 
