@@ -32,7 +32,7 @@ namespace ELibrary_Team_1
             services.AddControllersWithViews();
             ///
             services.AddDbContext<ELibraryDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ElibraryDeploy")));
+                options.UseSqlServer(Configuration.GetConnectionString("ElibraryDb")));
 
 
             services.AddSingleton<IEmailSender, EmailSender>();

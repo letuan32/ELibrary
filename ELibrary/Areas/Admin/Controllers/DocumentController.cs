@@ -328,6 +328,7 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
         {
 
             var document = _unitOfWork.Document.GetById(id);
+            
             return View(document);
         }
 
@@ -338,6 +339,12 @@ namespace ELibrary_Team_1.Areas.Admin.Controllers
         {
             var document = _unitOfWork.Document.GetById(id);
             _unitOfWork.Document.Remove(document);
+            if (document.Image != null) // Delete old image
+            {
+                string wwwrootPath = _hostEnvironment.WebRootPath;
+                string oldFilePath = Path.Combine(wwwrootPath + "/images/" + document.Image);
+                System.IO.File.Delete(oldFilePath);
+            }
             _unitOfWork.SaveChange();
             return Json(new { html = Helper.RenderRazorViewToString(this, "_ViewAll", _unitOfWork.Document.GetAll())});
         }

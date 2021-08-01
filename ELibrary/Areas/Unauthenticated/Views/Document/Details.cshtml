@@ -14,7 +14,7 @@
                 <div class="preview col-md-6">
 
                     <div class="preview-pic tab-content">
-                        <div class="tab-pane active" id="pic-1"><img src="@("~/Images/"+Model.Image)" asp-append-version="true" /></div>
+                        <div class="tab-pane active" id="pic-1"><img src="@("~/images/"+Model.Image)" asp-append-version="true" /></div>
                     </div>
                 </div>
                 <div class="details col-md-6">
@@ -67,15 +67,24 @@
 
                         </div>
                         <div id="chapterList">
-                            @foreach (var item in ViewBag.Chapters)
-                            {
+                       @if (ViewBag.Chapters.Count == 0)
+                       {
+                                <div>
+                                    <h6>Updating...</h6>
+                                </div>
+                       }
+                       else
+                       {
+                       @foreach (var item in ViewBag.Chapters)
+                       {
                                 <div>
                                     <a style="line-height: 1.2" class="btn-link"
-                                       onclick="showInPopup('@Url.Action("GetChapter","Document",new {title=item.Title, number=item.Number,id =item.Id},Context.Request.Scheme)')">
+                                       onclick="showInPopup('@Url.Action(" GetChapter", "Document", new { title = item.Title, number = item.Number, id = item.Id }, Context.Request.Scheme)')">
                                         @item.Number<span>: </span>@item.Title
                                     </a>
                                 </div>
-                            }
+                       }
+                       }
                         </div>
                     </div>
                 </div>
